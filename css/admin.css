@@ -1,0 +1,60 @@
+#mainNavbar ul {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    height: 8vh;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ccc;
+}
+
+#mainNavbar li {
+    float: left;
+}
+
+#mainNavbar li:last-child {
+    float: right;
+}
+
+#mainNavbar li a {
+    display: block;
+    padding: 15px;
+}
+
+.wrapper {
+    display: flex;
+    height: 92vh;
+    margin-top: 8vh;
+    align-items: stretch;
+}
+
+#sidebar {
+    width: 20%;
+    height: 100%;
+    transition: all ease 0.5s;
+    padding: 5px;
+    font-weight: bold;
+    background: #ccc;
+}
+
+#sidebar.active {
+    margin-left: -20%;
+}
+
+#content {
+    width: 100%;
+}
+
+a {
+    outline: none;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+    text-decoration: none;
+}

@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />

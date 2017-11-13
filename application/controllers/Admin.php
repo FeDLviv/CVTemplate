@@ -26,7 +26,7 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        echo "INDEX";
+        $this->load->view('admin_view');
     }
 
     public function login()

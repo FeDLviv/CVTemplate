@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Час створення: Лис 12 2017 р., 15:33
+-- Час створення: Лис 13 2017 р., 19:45
 -- Версія сервера: 10.1.26-MariaDB
 -- Версія PHP: 7.1.8
 
@@ -125,6 +125,25 @@ INSERT INTO `skill` (`id`, `type`, `name`, `level`, `dateChange`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблиці `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `password`) VALUES
+(1, 'root', '$2y$10$MIZpRf2JBMObhTMQYSohEebqJuTIcDf6n7pf6smfrbmItjXh1EBoi');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблиці `work`
 --
 
@@ -167,6 +186,13 @@ ALTER TABLE `skill`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Індекси таблиці `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UN` (`name`);
+
+--
 -- Індекси таблиці `work`
 --
 ALTER TABLE `work`
@@ -191,6 +217,11 @@ ALTER TABLE `language`
 --
 ALTER TABLE `skill`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT для таблиці `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблиці `work`
 --

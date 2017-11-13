@@ -11,16 +11,20 @@ class Admin extends CI_Controller
         $this->load->model('admin_model');
     }
 
-    public function _remap()
+    public function _remap($method)
     {
-        //admin_model
-        if ($this->session->test == 'my') {
-            $this->session->unset_userdata('test');
-            //$this->session->sess_destroy();
-            $this->index();
-        } else {
-            $this->session->set_userdata(['test'=>'my']);
-            $this->login();
+        switch ($method) {
+            case 'logout':
+            case 'authentication':
+                $this->$method();
+                break;
+            default:
+                if (($this->session->has_userdata('user') && $this->session->browser == $this->input->user_agent() && $this->session->address == $this->input->ip_address())) {
+                    $this->index();
+                } else {
+                    $this->login();
+                }
+                break;
         }
     }
 
@@ -31,14 +35,42 @@ class Admin extends CI_Controller
 
     public function login()
     {
-        echo "LOGIN";
+        $this->load->helper(array('form'));
+        $this->load->view('login_view');
     }
 
     public function authentication()
     {
+        $this->load->library('form_validation');
+        //to config
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        
+        if ($this->form_validation->run() == true) {
+            $pas = $this->admin_model->get_password($this->input->post("user"));
+            if (isset($pas) && password_verify($this->input->post("password"), $pas)) {
+                $this->session->set_userdata(
+                    [
+                        'user'=>$this->input->post("user"),
+                        'browser'=>$this->input->user_agent(),
+                        'address'=>$this->input->ip_address()
+                    ]
+                );
+
+                redirect('/admin');
+            } else {
+                //password not hash
+                $this->load->view('login_view');
+            }
+        } else {
+            $this->load->view('login_view');
+        }
     }
 
-    public function ajax_logout()
+    public function logout()
     {
+        //$this->input->is_ajax_request();
+        //$this->input->server('REQUEST_METHOD') == 'POST';
+        $this->session->sess_destroy();
+        redirect('/admin');
     }
 }

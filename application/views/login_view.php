@@ -48,6 +48,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <p class="text-danger mt-4"><?= $msg ?></p>
                     <?php endif ?>
 
+                    <div class="mt-5 text-center">
+                        <a href="<?= base_url(); ?>"><i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
+                    </div>
+
                 </form>
 
             </div>

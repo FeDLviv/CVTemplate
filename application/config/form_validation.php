@@ -2,10 +2,12 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 $config = [
-    'admin/authentication' => [
+    'error_prefix' => '<small class="form-text text-muted">',
+    'error_suffix' => '</small>',
+    'admin/login' => [
         [
             'field' => 'user',
-            'label' => 'User',
+            'label' => 'Username',
             'rules' => 'trim|required|max_length[50]'
         ],
         [
@@ -15,3 +17,5 @@ $config = [
         ]
     ]
 ];
+
+

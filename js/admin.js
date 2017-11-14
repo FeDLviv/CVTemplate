@@ -1,10 +1,10 @@
 $(function () {
 
-    $('#menu-toggle').click('on', function (e) {
+    $('#menu-toggle').on('click', function (e) {
         e.preventDefault();
         var deg = ($('#sidebar').hasClass('active')) ? 0 : 180;
         $('#sidebar').toggleClass('active');
-        $(this).find('i').animate({
+        $(this).find('i').stop(true, true).animate({
             borderSpacing: deg
         }, {
             step: function (now, fx) {
@@ -13,7 +13,20 @@ $(function () {
                 $(this).css('transform', 'rotate(' + now + 'deg)');
             },
             duration: 300
-        }, 'linear');
+        }, 'ease');
+    });
+
+    $('#formContact').on('submit', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (result) {
+                alert(result);
+            }
+        });
     });
 
 });

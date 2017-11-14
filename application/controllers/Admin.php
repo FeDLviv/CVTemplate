@@ -8,58 +8,50 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('admin_model');
     }
 
     public function _remap($method)
     {
-        switch ($method) {
-            case 'logout':
-            case 'authentication':
-                $this->$method();
-                break;
-            default:
-                if (($this->session->has_userdata('user') && $this->session->browser == $this->input->user_agent() && $this->session->address == $this->input->ip_address())) {
-                    $this->index();
+        if($method == 'logout') {
+            $this->$method();
+        } else {
+            if (($this->session->has_userdata('user') && $this->session->browser == $this->input->user_agent() && $this->session->address == $this->input->ip_address())) {
+                if($this->input->is_ajax_request()){
+                    $this->$method();
                 } else {
-                    $this->login();
+                    $this->index();
                 }
-                break;
+            } else {
+                $this->login();
+            }
         }
     }
 
     public function index()
     {
-        $this->load->view('admin_view');
+        $data['contacts'] = $this->main_model->get_contacts();
+        $this->load->view('admin_view', $data);
     }
 
     public function login()
     {
-        $this->load->helper(array('form'));
-        $this->load->view('login_view');
-    }
-
-    public function authentication()
-    {
+        $this->load->helper('form');
         $this->load->library('form_validation');
-        //to config
-        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->load->model('admin_model');       
         
         if ($this->form_validation->run() == true) {
-            $pas = $this->admin_model->get_password($this->input->post("user"));
-            if (isset($pas) && password_verify($this->input->post("password"), $pas)) {
+            $pas = $this->admin_model->get_password($this->input->post("user", true));
+            if (isset($pas) && password_verify($this->input->post("password", true), $pas)) {
                 $this->session->set_userdata(
                     [
-                        'user'=>$this->input->post("user"),
+                        'user'=>$this->input->post("user", true),
                         'browser'=>$this->input->user_agent(),
                         'address'=>$this->input->ip_address()
                     ]
                 );
-
                 redirect('/admin');
             } else {
-                //password not hash
-                $this->load->view('login_view');
+                $this->load->view('login_view', ['msg'=>'The username or password is incorrect']);
             }
         } else {
             $this->load->view('login_view');
@@ -68,9 +60,12 @@ class Admin extends CI_Controller
 
     public function logout()
     {
-        //$this->input->is_ajax_request();
-        //$this->input->server('REQUEST_METHOD') == 'POST';
         $this->session->sess_destroy();
         redirect('/admin');
+    }
+
+    public function ajax_contact()
+    {
+       echo "AJAX";
     }
 }

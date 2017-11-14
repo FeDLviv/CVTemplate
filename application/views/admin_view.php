@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
 
     <nav id="mainNavbar">
-        <ul>
+        <ul class="bg-gray">
             <li>
                 <a id="menu-toggle" href="#"><i class="fa fa-caret-square-o-left fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Menu</a>
             </li>
@@ -29,39 +29,54 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="wrapper">
 
-        <nav id="sidebar" class="nav flex-column nav-pills">
-            <a class="nav-link active" data-toggle="pill" href="#settings">
+        <nav id="sidebar" class="nav flex-column bg-gray">
+            <a class="nav-link active" data-toggle="tab" href="#settings">
                 <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings
             </a>
-            <a class="nav-link" data-toggle="pill" href="#contact">
+            <a class="nav-link" data-toggle="tab" href="#contact">
                 <i class="fa fa-address-card fa-fw" aria-hidden="true"></i>&nbsp;Contact
             </a>
-            <a class="nav-link" data-toggle="pill" href="#education">
+            <a class="nav-link" data-toggle="tab" href="#education">
                 <i class="fa fa-university fa-fw" aria-hidden="true"></i>&nbsp;Education
             </a>
-            <a class="nav-link" data-toggle="pill" href="#work">
+            <a class="nav-link" data-toggle="tab" href="#work">
                 <i class="fa fa-briefcase fa-fw" aria-hidden="true"></i>&nbsp;Work experience
             </a>
-            <a class="nav-link" data-toggle="pill" href="#skills">
+            <a class="nav-link" data-toggle="tab" href="#skills">
                 <i class="fa fa-code fa-fw" aria-hidden="true"></i>&nbsp;Skills
             </a>
-            <a class="nav-link" data-toggle="pill" href="#languages">
+            <a class="nav-link" data-toggle="tab" href="#languages">
                 <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;Languages
             </a>
         </nav>
 
         <div id="content">
-            <div class="container-fluid">
+            <div class="container-fluid p-3">
                 <div class="row">
                     <div class="col">
 
                         <div class="tab-content">
-                            <div id="settings" class="tab-pane fade in active">
+                            <div id="settings" class="tab-pane fade show active">
                                 <h3>Settings</h3>
                             </div>
+
                             <div id="contact" class="tab-pane fade">
+
                                 <h3>Contact</h3>
+                                <form id="formContact" action="<?= base_url(); ?>admin/ajax_contact" method="POST">
+                                    <?php foreach($contacts as $key => $val) :?>
+                                        <div class="form-group row">
+                                            <label for="<?= $key ?>" class="col-2 col-form-label"><?= $key ?></label>
+                                            <div class="col-10">
+                                                <input class="form-control" type="text" value="<?= $val ?>" id="<?= $key ?>">
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                    <button id="butContact" type="submit" class="btn btn-primary">Save</button>    
+                                </form>
+
                             </div>
+
                             <div id="education" class="tab-pane fade">
                                 <h3>Education</h3>
                             </div>

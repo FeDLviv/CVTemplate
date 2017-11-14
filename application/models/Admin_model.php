@@ -14,20 +14,25 @@ class Admin_model extends CI_Model
         }
     }
 
-    public function set_contacts($data) {
-        $fname = "application/config/myconfig.php";
-        $fhandle = fopen($fname,"r");
-        $content = fread($fhandle, filesize($fname));
-        
+    public function set_contacts($data)
+    {
+        $name = "application/config/myconfig.php";
+        $handle = fopen($name, "r");
+        flock($handle, LOCK_EX);
+        $content = fread($handle, filesize($name));
+        $count = 0;
         foreach ($data as $key => $value) {
-            //$reg = "/'".$key."' => ?/";
-            $content = str_replace($key, $value, $content);    
+            if ($this->config->item('contacts')[$key] !== $value) {
+                $reg ="{'".$key."'\s*=>\s*(.+)'}";
+                $val = "'".$key."' => '".$value."'";
+                $content = preg_replace($reg, $val, $content);
+                $count++;
+            }
         }
-                       
-        $fhandle = fopen($fname,"w");
-        fwrite($fhandle,$content);
-        fclose($fhandle);
-        
-        return true;
+        $handle = fopen($name, "w");
+        fwrite($handle, $content);
+        fclose($handle);
+        //if($count) change data
+        return $count;
     }
 }

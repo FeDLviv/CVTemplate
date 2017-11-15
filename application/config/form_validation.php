@@ -42,7 +42,19 @@ $config = [
             'label' => 'GitHub',
             'rules' => 'trim|required|valid_url|max_length[100]'
         ]
-    ]    
+    ],
+    'admin/ajax_settings' => [
+        [
+            'field' => 'Head',
+            'label' => 'Head',
+            'rules' => 'trim|required|max_length[30]'
+        ],
+        [
+            'field' => 'Title',
+            'label' => 'Title',
+            'rules' => 'trim|required|max_length[30]',
+        ]
+    ]        
 ];
 
 

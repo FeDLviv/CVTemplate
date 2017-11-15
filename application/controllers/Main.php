@@ -18,11 +18,11 @@ class Main extends CI_Controller
 
     private function _add_settings(&$data)
     {
-        $data['head'] = $this->config->item('head');
-        $data['title'] = $this->config->item('title');
+        $data['head'] = $this->config->item('Head');
+        $data['title'] = $this->config->item('Title');
         $data['CV_path'] = $this->config->item('CV_path');
-        $data['photo_path'] = $this->config->item('photo_path');
-        $data['last_change'] = $this->config->item('last_change');
+        $data['photo_path'] = $this->config->item('Photo_path');
+        $data['last_change'] = $this->config->item('Last_change');
     }
 
     private function _rendererData($data)

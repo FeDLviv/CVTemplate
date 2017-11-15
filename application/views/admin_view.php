@@ -22,7 +22,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <a id="menu-toggle" href="#"><i class="fa fa-caret-square-o-left fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Menu</a>
             </li>
             <li id="linkSite">
-                <a href="<?= base_url(); ?>"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;<?= $title ?></a>
+                <a href="<?= base_url(); ?>"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;<?= $settings['Title'] ?></a>
             </li>
             <li>
                 <a href="<?= base_url(); ?>/admin/logout"><i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Logout</a>
@@ -62,6 +62,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                             <div id="settings" class="tab-pane fade show active">
                                 <h3><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</h3>
+                                <form id="formSettings" action="<?= base_url(); ?>admin/ajax_settings" method="POST" enctype="multipart/form-data">
+                                    <?php foreach($settings as $key => $val) :?>
+                                        <div class="form-group row">
+                                            <label for="<?= $key ?>" class="col-2 col-form-label">
+                                                <?= $key ?>
+                                            </label>
+                                            <?php if($key == 'CV_path' || $key == 'Photo_path') :?>
+                                                <div class="col-9">
+                                                    <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>">
+                                                </div> 
+                                                <div class="col-1">
+                                                    <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if($val === '') echo 'disabled'?>>Delete</button>
+                                                </div>
+                                            <?php else :?>
+                                                <div class="col-10">
+                                                    <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>" required maxlength="30">
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                    <button id="butContact" type="submit" class="btn btn-primary">Save</button>
+                                </form>
                             </div>
 
                             <div id="contact" class="tab-pane fade">

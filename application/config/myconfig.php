@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$config['head'] = 'CV Pyshnyi Fedir';
-$config['title'] = 'Pyshnyi Fedir';
+$config['Head'] = 'CV Pyshnyi Fedir';
+$config['Title'] = 'Pyshnyi Fedir';
 $config['CV_path'] = 'files/Pyshnyi_Fedir_cv.pdf';
-$config['photo_path'] = 'images/photo.png';
-$config['last_change'] = '2017-11-12';
+$config['Photo_path'] = 'images/photo.png';
+$config['Last_change'] = '2017-11-12';
 
 $config['contacts'] = [
     'Location' => 'Lviv',

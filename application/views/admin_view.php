@@ -21,6 +21,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <li>
                 <a id="menu-toggle" href="#"><i class="fa fa-caret-square-o-left fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Menu</a>
             </li>
+            <li id="linkSite">
+                <a href="<?= base_url(); ?>"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;<?= $title ?></a>
+            </li>
             <li>
                 <a href="<?= base_url(); ?>/admin/logout"><i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Logout</a>
             </li>
@@ -56,39 +59,69 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="col">
 
                         <div class="tab-content">
+
                             <div id="settings" class="tab-pane fade show active">
-                                <h3>Settings</h3>
+                                <h3><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</h3>
                             </div>
 
                             <div id="contact" class="tab-pane fade">
-
-                                <h3>Contact</h3>
+                                <h3><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Contact</h3>
                                 <form id="formContact" action="<?= base_url(); ?>admin/ajax_contact" method="POST">
                                     <?php foreach($contacts as $key => $val) :?>
-                                        <div class="form-group row">
-                                            <label for="<?= $key ?>" class="col-2 col-form-label"><?= $key ?></label>
-                                            <div class="col-10">
-                                                <input class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" id="<?= $key ?>">
-                                            </div>
+                                    <div class="form-group row">
+                                        <label for="<?= $key ?>" class="col-2 col-form-label">
+                                            <?= $key ?>
+                                        </label>
+                                        <div class="col-10">
+                                            <?php switch ($key) :
+                                                case 'Email':
+                                                            ?>
+                                            <input id="<?= $key ?>" class="form-control" type="email" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
+                                                required maxlength="100">
+                                            <?php
+                                                    break; ?>
+                                                <?php case 'Phone':
+                                                        ?>
+                                                <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
+                                                    required pattern="^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$">
+                                                <?php
+                                                    break; ?>
+                                                    <?php case 'GitHub':
+                                                        ?>
+                                                    <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
+                                                        required type="URL" maxlength="100">
+                                                    <?php
+                                                    break; ?>
+                                                        <?php default:
+                                                        ?>
+                                                        <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
+                                                            required maxlength="50">
+                                                        <?php
+                                                    break; ?>
+                                                            <?php endswitch; ?>
                                         </div>
+                                    </div>
                                     <?php endforeach; ?>
-                                    <button id="butContact" type="submit" class="btn btn-primary">Save</button>    
+                                    <button id="butContact" type="submit" class="btn btn-primary">Save</button>
                                 </form>
-
                             </div>
 
                             <div id="education" class="tab-pane fade">
                                 <h3>Education</h3>
                             </div>
+
                             <div id="work" class="tab-pane fade">
                                 <h3>Work experience</h3>
                             </div>
+
                             <div id="skills" class="tab-pane fade">
                                 <h3>Skills</h3>
                             </div>
+
                             <div id="languages" class="tab-pane fade">
                                 <h3>Languages</h3>
                             </div>
+
                         </div>
 
                     </div>
@@ -96,6 +129,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
         </div>
 
+    </div>
+
+    <div id="modalDialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CV admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="modalText"></h4>
+                    <div id="modalError"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="<?= base_url(); ?>js/jquery-3.2.1.min.js"></script>

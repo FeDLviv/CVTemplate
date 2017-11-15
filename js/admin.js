@@ -24,7 +24,13 @@ $(function () {
             type: form.attr('method'),
             data: form.serialize(),
             success: function (result) {
-                alert(result);
+                $tmp = $.parseJSON(result);
+                if ($tmp.html !== null) {
+                    form[0].reset();
+                }
+                $('#modalError').html($tmp.html);
+                $('#modalText').text($tmp.complete ? 'Save' : 'Error');
+                $('#modalDialog').modal('show')
             }
         });
     });

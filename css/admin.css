@@ -16,6 +16,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    border-bottom: 1px solid #000;
 }
 
 #mainNavbar li {
@@ -31,18 +32,42 @@
     padding: 15px;
 }
 
+#linkSite {
+    font-weight: bold;
+}
+
+#linkSite a {
+    color: #000;
+}
+
+#linkSite a:hover {
+    color: #010199;
+}
+
 .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
     height: calc(100vh - 4em);
     margin-top: 4em;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
     align-items: stretch;
 }
 
 #sidebar {
+    z-index: 2;
+    position: relative;
+    top: -1px;
     width: 20%;
     height: 100%;
+    -webkit-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
     transition: all ease 0.5s;
     font-weight: bold;
+    border-right: 1px solid #000;
 }
 
 #sidebar.active {
@@ -66,4 +91,29 @@ a:visited,
 a:link,
 a:active {
     text-decoration: none;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #CCC;
+    opacity: 0.9;
+}
+
+.form-control:-moz-placeholder {
+    color: #CCC;
+    opacity: 0.9;
+}
+
+.form-control::-moz-placeholder {
+    color: #CCC;
+    opacity: 0.9;
+}
+
+.form-control:-ms-input-placeholder {
+    color: #CCC;
+    opacity: 0.9;
+}
+
+.form-control::-ms-input-placeholder {
+    color: #CCC;
+    opacity: 0.9;
 }

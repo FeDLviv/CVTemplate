@@ -8,7 +8,8 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('admin_model');
+        $this->load->library('form_validation'); 
+        $this->load->helper('form');
     }
 
     public function _remap($method)
@@ -31,14 +32,13 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['contacts'] = $this->main_model->get_contacts();
+        $data['title'] = $this->config->item('title');
         $this->load->view('admin_view', $data);
     }
 
     public function login()
-    {
-        $this->load->helper('form');
-        $this->load->library('form_validation');       
-        
+    {                
+        $this->load->model('admin_model');
         if ($this->form_validation->run() == true) {
             $pas = $this->admin_model->get_password($this->input->post('user', true));
             if (isset($pas) && password_verify($this->input->post('password', true), $pas)) {
@@ -66,6 +66,15 @@ class Admin extends CI_Controller
 
     public function ajax_contact()
     {
-        echo $this->admin_model->set_contacts($this->input->post(), true);
+        $result = [
+            'complete' => false,
+            'html' => null
+        ];
+        if ($this->form_validation->run() == true) {
+            $result['complete'] = $this->main_model->set_contacts($this->input->post());
+        } else {
+            $result['html'] = validation_errors();
+        }
+        echo json_encode($result);
     }
 }

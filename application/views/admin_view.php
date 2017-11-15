@@ -69,10 +69,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                 <?= $key ?>
                                             </label>
                                             <?php if($key == 'CV_path' || $key == 'Photo_path') :?>
-                                                <div class="col-9">
+                                                <div class="col-3">
                                                     <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>">
                                                 </div> 
-                                                <div class="col-1">
+                                                <div class="col-2">
                                                     <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if($val === '') echo 'disabled'?>>Delete</button>
                                                 </div>
                                             <?php else :?>

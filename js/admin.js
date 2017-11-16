@@ -46,6 +46,9 @@ $(function () {
                 $tmp = $.parseJSON(result);
                 if ($tmp.html !== null) {
                     form[0].reset();
+                } else {
+                    var head = form.find('input[name="Head"]').val().trim();
+                    $('#linkSite').find('a').html('<i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;' + head + '</i>');
                 }
                 $('#modalError').html($tmp.html);
                 $('#modalText').text($tmp.complete ? 'Save' : 'Error');
@@ -55,37 +58,27 @@ $(function () {
     });
 
     $('#butCV_path').on('click', function (e) {
-        e.preventDefault();
-        var but = $(this);
-        var url = $(this).closest('form').attr('action');
-        url = url.substr(0, url.lastIndexOf('/')) + '/ajax_deleteFile';
-        var data = {
-            name: $(this).attr('id').substring(3)
-        };
-        $.post(url, data, function (result) {
-            if (result == true) {
-                $(but).attr("disabled", true);
-            }
-            $('#modalText').text(result ? 'Delete' : 'Not');
-            $('#modalDialog').modal('show')
-        });
+        ajaxDelete($(this), e);
     });
 
     $('#butPhoto_path').on('click', function (e) {
-        e.preventDefault();
-        var but = $(this);
-        var url = $(this).closest('form').attr('action');
+        ajaxDelete($(this), e);
+    });
+
+    function ajaxDelete(button, event) {
+        event.preventDefault();
+        var url = button.closest('form').attr('action');
         url = url.substr(0, url.lastIndexOf('/')) + '/ajax_deleteFile';
         var data = {
-            name: $(this).attr('id').substring(3)
+            name: button.attr('id').substring(3)
         };
         $.post(url, data, function (result) {
             if (result == true) {
-                $(but).attr("disabled", true);
+                button.attr("disabled", true);
             }
-            $('#modalText').text(result ? 'Delete' : 'Not');
+            $('#modalText').text(result ? 'File is deleted' : 'File can not delete');
             $('#modalDialog').modal('show')
         });
-    });
+    };
 
 });

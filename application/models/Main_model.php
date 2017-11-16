@@ -32,7 +32,6 @@ class Main_model extends CI_Model
     public function get_contacts()
     {
         return $this->config->item('contacts');
-        //$this->config->set_item('contacts', array_merge($this->config->item('contacts'), array('location' => 'Kiev')));
     }
 
     public function set_contacts($data)

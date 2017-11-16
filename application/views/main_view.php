@@ -34,7 +34,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div id="wrapper">
         <header id="header">
             <div id="logo" data-tooltip="Download CV">
-                <a href="<?= $CV_path ?>" download><img src="images/logo.png" alt=""></a>
+                <?php if($CV_path !== '') :?>
+                    <a href="<?= $CV_path ?>" download><img src="images/logo.png" alt=""></a>
+                <?php endif ;?>
             </div>
             <div id="photo">
                 <img src="<?= $photo_path ?>" alt="">

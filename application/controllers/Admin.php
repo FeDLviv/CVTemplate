@@ -89,7 +89,6 @@ class Admin extends CI_Controller
             'complete' => false,
             'html' => null
         ];
-        //update head
         if ($this->form_validation->run() == true) {
             $result['complete'] = $this->main_model->set_settings($this->input->post());
         } else {

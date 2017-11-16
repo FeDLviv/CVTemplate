@@ -22,7 +22,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <a id="menu-toggle" href="#"><i class="fa fa-caret-square-o-left fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Menu</a>
             </li>
             <li id="linkSite">
-                <a href="<?= base_url(); ?>"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;<?= $settings['Title'] ?></a>
+                <a href="<?= base_url(); ?>"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;<?= $settings['Head'] ?></a>
             </li>
             <li>
                 <a href="<?= base_url(); ?>/admin/logout"><i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i>&nbsp;Logout</a>
@@ -68,18 +68,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <label for="<?= $key ?>" class="col-2 col-form-label">
                                                 <?= $key ?>
                                             </label>
-                                            <?php if($key == 'CV_path' || $key == 'Photo_path') :?>
-                                                <div class="col-3">
-                                                    <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>">
-                                                </div> 
-                                                <div class="col-2">
-                                                    <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if($val === '') echo 'disabled'?>>Delete</button>
-                                                </div>
-                                            <?php else :?>
-                                                <div class="col-10">
+                                            <div class="col-10">
+                                                <?php if($key == 'CV_path' || $key == 'Photo_path') :?>
+                                                    <div class="btn-group" data-toggle="buttons">
+                                                        <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>">
+                                                        <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if($val === '') echo 'disabled'?>>Delete</button>
+                                                    </div>
+                                                <?php else :?>
                                                     <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>" required maxlength="30">
-                                                </div>
-                                            <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
                                     <?php endforeach; ?>
                                     <button id="butContact" type="submit" class="btn btn-primary">Save</button>

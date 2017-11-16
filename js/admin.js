@@ -24,12 +24,12 @@ $(function () {
             type: form.attr('method'),
             data: form.serialize(),
             success: function (result) {
-                $tmp = $.parseJSON(result);
-                if ($tmp.html !== null) {
+                var tmp = $.parseJSON(result);
+                if (tmp.html !== null) {
                     form[0].reset();
                 }
-                $('#modalError').html($tmp.html);
-                $('#modalText').text($tmp.complete ? 'Save' : 'Error');
+                $('#modalError').html(tmp.html);
+                $('#modalText').text(tmp.complete ? 'Save' : 'Error');
                 $('#modalDialog').modal('show')
             }
         });
@@ -45,17 +45,17 @@ $(function () {
             contentType: false,
             processData: false,
             success: function (result) {
-                $tmp = $.parseJSON(result);
-                if ($tmp.html !== null) {
+                var tmp = $.parseJSON(result);
+                if (tmp.html !== null) {
                     form[0].reset();
                 } else {
                     var head = form.find('input[name="Head"]').val().trim();
                     $('#linkSite').find('a').html('<i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;' + head + '</i>');
-                    $('#butCV_path').attr("disabled", !$tmp.cv);
-                    $('#butPhoto_path').attr("disabled", !$tmp.photo);
+                    $('#butCV_path').attr("disabled", !tmp.cv);
+                    $('#butPhoto_path').attr("disabled", !tmp.photo);
                 }
-                $('#modalError').html($tmp.html);
-                $('#modalText').text($tmp.complete ? 'Save' : 'Error');
+                $('#modalError').html(tmp.html);
+                $('#modalText').text(tmp.complete ? 'Save' : 'Error');
                 $('#modalDialog').modal('show')
             }
         });
@@ -84,5 +84,30 @@ $(function () {
             $('#modalDialog').modal('show')
         });
     };
+
+    $('#tabLanguage button').on('click', function (e) {
+        var tr = $(this).closest('tr');
+        var id = tr.find('td:first').text();
+        var table = $(this).closest('table').attr('id').substring(3).toLowerCase();
+        $.post($(this).attr('data-url'), {
+            'id': id,
+            'table': table
+        }, function (result) {
+            if (result) {
+                tr.remove();
+            }
+            $('#modalText').text(result ? 'Delete' : 'Error');
+            $('#modalDialog').modal('show')
+        });
+    });
+
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="fa fa-fw fa-check"></i></button>' + '<button type="button" class="btn editable-cancel"><i class="fa fa-fw fa-remove"></i></button>';
+
+    $('.language-ediatble').editable({
+        success: function (response, newValue) {
+            alert(response);
+        }
+    });
 
 });

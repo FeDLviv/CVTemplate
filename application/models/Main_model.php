@@ -83,6 +83,18 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    public function delete_language($id) {
+        $this->db->delete('language', array('id' => $id));
+        //if update date change
+        return $this->db->affected_rows(); 
+    }
+
+    public function update_language($col, $val, $id) {
+        $this->db->update('language', array($col => $val), array('id' => $id));
+        //if update date change
+        return $this->db->affected_rows(); 
+    }
+
     public function set_last_change($content) {
         $reg ="{config\['Last_change'\]\s*=\s*(.+)'}";
         $val = "config['Last_change'] = '".date('Y-m-d')."'";

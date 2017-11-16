@@ -11,6 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <title>CV admin</title>
     <link rel="stylesheet" href="<?= base_url(); ?>css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="<?= base_url(); ?>css/bootstrap-editable.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/admin.min.css" type="text/css">
 </head>
 
@@ -140,6 +141,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                             <div id="languages" class="tab-pane fade">
                                 <h3><i class="fa fa-language" aria-hidden="true"></i>&nbsp;Languages</h3>
+                                <table id="tabLanguage" class="table table-bordered table-hover table-sm">
+                                    <?php if (count($languages)) :?>
+                                        <thead class="thead-inverse">
+                                            <tr>
+                                                <?php foreach ($languages[0] as $key => $val) :?>
+                                                        <th><?= $key ?></th>
+                                                <?php endforeach; ?> 
+                                                <th>delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($languages as $row) :?>
+                                                <tr>
+                                                    <?php foreach ($row as $key => $val) :?>
+                                                        <td><a href="" class="language-ediatble" data-name="<?= $key ?>" data-pk="<?= $row['id'] ?>" data-url="<?= base_url(); ?>admin/ajax_update_language"><?= $row[$key] ?></td></td>
+                                                    <?php endforeach; ?> 
+                                                    <th><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete">Delete</button></th>
+                                                <tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    <?php endif; ?> 
+                                </table>
                             </div>
 
                         </div>
@@ -173,6 +196,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <script src="<?= base_url(); ?>js/jquery-3.2.1.min.js"></script>
     <script src="<?= base_url(); ?>js/bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>js/bootstrap-editable.min.js"></script>
     <script src="<?= base_url(); ?>js/admin.min.js"></script>
 
 </body>

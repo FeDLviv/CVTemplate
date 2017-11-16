@@ -38,6 +38,7 @@ class Admin extends CI_Controller
             'Photo_path' => $this->config->item('Photo_path'),
         ];
         $data['contacts'] = $this->main_model->get_contacts();
+        $data['languages'] = $this->main_model->get_languages();
         $this->load->view('admin_view', $data);
     }
 
@@ -85,26 +86,26 @@ class Admin extends CI_Controller
 
     public function ajax_settings()
     {
-        $this->load->library('upload');    
+        $this->load->library('upload');
         $result = [
             'complete' => false,
             'html' => null,
             'cv' => '',
             'photo' => ''
         ];
-        if ($this->form_validation->run() == true) { 
-            $cv = $this->_upload_file('CV_path');   
+        if ($this->form_validation->run() == true) {
+            $cv = $this->_upload_file('CV_path');
             $photo = $this->_upload_file('Photo_path');
-            if($cv['path'] !== null && $photo['path'] !== null) {
+            if ($cv['path'] !== null && $photo['path'] !== null) {
                 $data = $this->input->post();
                 $data['CV_path'] = $cv['path'];
                 $data['Photo_path'] = $photo['path'];
                 $result['cv'] = $data['CV_path'];
                 $result['photo'] = $data['Photo_path'];
-                $result['complete'] = $this->main_model->set_settings($data);   
+                $result['complete'] = $this->main_model->set_settings($data);
             } else {
-                $result['html'] = $cv['html'];    
-                $result['html'] .= $photo['html'];    
+                $result['html'] = $cv['html'];
+                $result['html'] .= $photo['html'];
             }
         } else {
             $result['html'] = validation_errors();
@@ -131,13 +132,28 @@ class Admin extends CI_Controller
         }
     }
 
-    private function _upload_file($key) 
+    public function ajax_delete()
+    {
+        $table = $this->input->post('table');
+        $id = $this->input->post('id');
+        echo $this->main_model->delete_language($id);
+    }
+
+    public function ajax_update_language()
+    {
+        $col =  $this->input->post('name');
+        $val =  $this->input->post('value');
+        $id =  $this->input->post('pk');
+        echo $this->main_model->update_language($col, $val, $id);
+    }
+
+    private function _upload_file($key)
     {
         $result = [
             'path' => null,
             'html' => null
-        ];  
-        if($_FILES[$key]['size'] <= 0) {
+        ];
+        if ($_FILES[$key]['size'] <= 0) {
             $result['path'] = $this->config->item($key);
         } else {
             $tmp = null;
@@ -159,17 +175,13 @@ class Admin extends CI_Controller
                 default:
                     break;
             }
-            $this->upload->initialize($config);         
-            if ($this->upload->do_upload($key))
-            {
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload($key)) {
                 $result['path'] = $tmp;
-            }
-            else
-            {
+            } else {
                 $result['html'] = $this->upload->display_errors();
             }
         }
         return $result;
     }
-
 }

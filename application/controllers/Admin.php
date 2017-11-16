@@ -95,7 +95,7 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == true) { 
             $cv = $this->_upload_file('CV_path');   
             $photo = $this->_upload_file('Photo_path');
-            if($cv['path'] !== '' && $photo['path'] !== '') {
+            if($cv['path'] !== null && $photo['path'] !== null) {
                 $data = $this->input->post();
                 $data['CV_path'] = $cv['path'];
                 $data['Photo_path'] = $photo['path'];
@@ -134,8 +134,8 @@ class Admin extends CI_Controller
     private function _upload_file($key) 
     {
         $result = [
-            'path' => '',
-            'html' => ''
+            'path' => null,
+            'html' => null
         ];  
         if($_FILES[$key]['size'] <= 0) {
             $result['path'] = $this->config->item($key);

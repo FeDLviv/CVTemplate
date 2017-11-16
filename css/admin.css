@@ -93,6 +93,10 @@ a:active {
     text-decoration: none;
 }
 
+label {
+    font-weight: bold;
+}
+
 .form-control::-webkit-input-placeholder {
     color: #CCC;
     opacity: 0.9;

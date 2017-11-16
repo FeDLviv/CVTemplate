@@ -70,8 +70,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             </label>
                                             <div class="col-10">
                                                 <?php if($key == 'CV_path' || $key == 'Photo_path') :?>
-                                                    <div class="btn-group" data-toggle="buttons">
-                                                        <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>">
+                                                    <div class="btn-group">
+                                                        <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>" accept="<?= ($key=='Photo_path') ? '.png' : '.pdf' ?>">
                                                         <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if($val === '') echo 'disabled'?>>Delete</button>
                                                     </div>
                                                 <?php else :?>
@@ -139,7 +139,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
 
                             <div id="languages" class="tab-pane fade">
-                                <h3>Languages</h3>
+                                <h3><i class="fa fa-language" aria-hidden="true"></i>&nbsp;Languages</h3>
                             </div>
 
                         </div>

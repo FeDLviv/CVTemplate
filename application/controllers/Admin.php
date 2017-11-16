@@ -85,12 +85,27 @@ class Admin extends CI_Controller
 
     public function ajax_settings()
     {
+        $this->load->library('upload');    
         $result = [
             'complete' => false,
-            'html' => null
+            'html' => null,
+            'cv' => '',
+            'photo' => ''
         ];
-        if ($this->form_validation->run() == true) {
-            $result['complete'] = $this->main_model->set_settings($this->input->post());
+        if ($this->form_validation->run() == true) { 
+            $cv = $this->_upload_file('CV_path');   
+            $photo = $this->_upload_file('Photo_path');
+            if($cv['path'] !== '' && $photo['path'] !== '') {
+                $data = $this->input->post();
+                $data['CV_path'] = $cv['path'];
+                $data['Photo_path'] = $photo['path'];
+                $result['cv'] = $data['CV_path'];
+                $result['photo'] = $data['Photo_path'];
+                $result['complete'] = $this->main_model->set_settings($data);   
+            } else {
+                $result['html'] = $cv['html'];    
+                $result['html'] .= $photo['html'];    
+            }
         } else {
             $result['html'] = validation_errors();
         }
@@ -115,4 +130,46 @@ class Admin extends CI_Controller
                 break;
         }
     }
+
+    private function _upload_file($key) 
+    {
+        $result = [
+            'path' => '',
+            'html' => ''
+        ];  
+        if($_FILES[$key]['size'] <= 0) {
+            $result['path'] = $this->config->item($key);
+        } else {
+            $tmp = null;
+            $config['overwrite'] = true;
+            $config['max_size'] = 2000;
+            switch ($key) {
+                case 'CV_path':
+                    $config['upload_path']  = './files/';
+                    $config['allowed_types'] = 'pdf';
+                    $config['file_name'] = 'cv';
+                    $tmp = 'files/cv.pdf';
+                    break;
+                case 'Photo_path':
+                    $config['upload_path']  = './images/';
+                    $config['allowed_types'] = 'png';
+                    $config['file_name'] = 'photo';
+                    $tmp = 'images/photo.png';
+                    break;
+                default:
+                    break;
+            }
+            $this->upload->initialize($config);         
+            if ($this->upload->do_upload($key))
+            {
+                $result['path'] = $tmp;
+            }
+            else
+            {
+                $result['html'] = $this->upload->display_errors();
+            }
+        }
+        return $result;
+    }
+
 }

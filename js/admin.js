@@ -41,7 +41,9 @@ $(function () {
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
-            data: form.serialize(),
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
             success: function (result) {
                 $tmp = $.parseJSON(result);
                 if ($tmp.html !== null) {
@@ -49,6 +51,8 @@ $(function () {
                 } else {
                     var head = form.find('input[name="Head"]').val().trim();
                     $('#linkSite').find('a').html('<i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;' + head + '</i>');
+                    $('#butCV_path').attr("disabled", !$tmp.cv);
+                    $('#butPhoto_path').attr("disabled", !$tmp.photo);
                 }
                 $('#modalError').html($tmp.html);
                 $('#modalText').text($tmp.complete ? 'Save' : 'Error');

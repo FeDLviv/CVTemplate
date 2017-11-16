@@ -146,6 +146,10 @@ li {
 	float: right;
 }
 
+#photo img {
+	max-width: 150px;
+}
+
 #name {
 	font-family: Dosis, sans-serif;
 	font-size: 80px;

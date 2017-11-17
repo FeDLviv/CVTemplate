@@ -102,11 +102,13 @@ $(function () {
     });
 
     $.fn.editable.defaults.mode = 'inline';
-    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="fa fa-fw fa-check"></i></button>' + '<button type="button" class="btn editable-cancel"><i class="fa fa-fw fa-remove"></i></button>';
+    $.fn.editable.defaults.highlight = '#5BC0DE';
+    $.fn.editableform.buttons = '<button type="submit" class="editable-submit btn btn-primary"><i class="fa fa-check"></i></button>' + '<button type="button" class="editable-cancel btn btn-outline-primary"><i class="fa fa-remove"></i></button>';
 
     $('.language-ediatble').editable({
-        success: function (response, newValue) {
-            alert(response);
+        params: function (params) {
+            params.table = 'language';
+            return params;
         }
     });
 

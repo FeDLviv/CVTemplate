@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Main_model extends CI_Model
 {
 
-    public function set_settings($data) 
+    public function set_settings($data)
     {
         $name = "application/config/myconfig.php";
         $handle = fopen($name, "r");
@@ -20,7 +20,7 @@ class Main_model extends CI_Model
                 $count++;
             }
         }
-        if($count) {
+        if ($count) {
             $content = $this->set_last_change($content);
         }
         $handle = fopen($name, "w");
@@ -50,7 +50,7 @@ class Main_model extends CI_Model
                 $count++;
             }
         }
-        if($count) {
+        if ($count) {
             $content = $this->set_last_change($content);
         }
         $handle = fopen($name, "w");
@@ -83,25 +83,33 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
-    public function delete_language($id) {
+    public function delete_language($id)
+    {
         $this->db->delete('language', array('id' => $id));
         //if update date change
-        return $this->db->affected_rows(); 
+        return $this->db->affected_rows();
     }
 
-    public function update_language($col, $val, $id) {
+    public function update_language($col, $val, $id)
+    {
         $this->db->update('language', array($col => $val), array('id' => $id));
-        //if update date change
-        return $this->db->affected_rows(); 
+        if ($this->db->affected_rows()) {
+            //if update date change
+            return true;
+        } else {
+            return $this->db->error()['message'];
+        }
     }
 
-    public function set_last_change($content) {
+    public function set_last_change($content)
+    {
         $reg ="{config\['Last_change'\]\s*=\s*(.+)'}";
         $val = "config['Last_change'] = '".date('Y-m-d')."'";
         return preg_replace($reg, $val, $content);
     }
 
-    public function clean_path_to_file($key) {
+    public function clean_path_to_file($key)
+    {
         $name = "application/config/myconfig.php";
         $handle = fopen($name, "r");
         flock($handle, LOCK_EX);

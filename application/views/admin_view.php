@@ -64,16 +64,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div id="settings" class="tab-pane fade show active">
                                 <h3><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</h3>
                                 <form id="formSettings" action="<?= base_url(); ?>admin/ajax_settings" method="POST" enctype="multipart/form-data">
-                                    <?php foreach($settings as $key => $val) :?>
+                                    <?php foreach ($settings as $key => $val) :?>
                                         <div class="form-group row">
                                             <label for="<?= $key ?>" class="col-2 col-form-label">
                                                 <?= $key ?>
                                             </label>
                                             <div class="col-10">
-                                                <?php if($key == 'CV_path' || $key == 'Photo_path') :?>
+                                                <?php if ($key == 'CV_path' || $key == 'Photo_path') :?>
                                                     <div class="btn-group">
                                                         <input id="<?= $key ?>" class="form-control-file" type="file" name="<?= $key ?>" accept="<?= ($key=='Photo_path') ? '.png' : '.pdf' ?>">
-                                                        <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if($val === '') echo 'disabled'?>>Delete</button>
+                                                        <button id="but<?= $key ?>" class="btn btn-outline-primary" <?php if ($val === '') {
+                                                            echo 'disabled';
+}?>>Delete</button>
                                                     </div>
                                                 <?php else :?>
                                                     <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>" required maxlength="30">
@@ -88,7 +90,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div id="contact" class="tab-pane fade">
                                 <h3><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Contact</h3>
                                 <form id="formContact" action="<?= base_url(); ?>admin/ajax_contact" method="POST">
-                                    <?php foreach($contacts as $key => $val) :?>
+                                    <?php foreach ($contacts as $key => $val) :?>
                                     <div class="form-group row">
                                         <label for="<?= $key ?>" class="col-2 col-form-label">
                                             <?= $key ?>
@@ -100,25 +102,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <input id="<?= $key ?>" class="form-control" type="email" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
                                                 required maxlength="100">
                                             <?php
-                                                    break; ?>
+                                                          break; ?>
                                                 <?php case 'Phone':
                                                         ?>
                                                 <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
                                                     required pattern="^\+\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$">
                                                 <?php
-                                                    break; ?>
+                                                          break; ?>
                                                     <?php case 'GitHub':
                                                         ?>
                                                     <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
                                                         required type="URL" maxlength="100">
                                                     <?php
-                                                    break; ?>
+                                                          break; ?>
                                                         <?php default:
                                                         ?>
                                                         <input id="<?= $key ?>" class="form-control" type="text" name="<?= $key ?>" value="<?= $val ?>" placeholder="<?= $val ?>"
                                                             required maxlength="50">
                                                         <?php
-                                                    break; ?>
+                                                          break; ?>
                                                             <?php endswitch; ?>
                                         </div>
                                     </div>
@@ -155,7 +157,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <?php foreach ($languages as $row) :?>
                                                 <tr>
                                                     <?php foreach ($row as $key => $val) :?>
-                                                        <td><a href="" class="language-ediatble" data-name="<?= $key ?>" data-pk="<?= $row['id'] ?>" data-url="<?= base_url(); ?>admin/ajax_update_language"><?= $row[$key] ?></td></td>
+                                                        <td><a href="" class="language-ediatble" data-name="<?= $key ?>" data-pk="<?= $row['id'] ?>" data-url="<?= base_url(); ?>admin/ajax_update"><?= $row[$key] ?></td></td>
                                                     <?php endforeach; ?> 
                                                     <th><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete">Delete</button></th>
                                                 <tr>

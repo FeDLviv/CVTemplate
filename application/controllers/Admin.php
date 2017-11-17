@@ -139,12 +139,26 @@ class Admin extends CI_Controller
         echo $this->main_model->delete_language($id);
     }
 
-    public function ajax_update_language()
+    public function ajax_update()
     {
         $col =  $this->input->post('name');
         $val =  $this->input->post('value');
         $id =  $this->input->post('pk');
-        echo $this->main_model->update_language($col, $val, $id);
+        $result;
+        switch ($this->input->post('table')) {
+            case 'language':
+                $result = $this->main_model->update_language($col, $val, $id);
+                break;
+            default:
+                exit('Error');
+                break;
+        }
+        if ($result===true) {
+            echo $result;
+        } else {
+            $this->output->set_status_header('400');
+            echo $result;
+        }
     }
 
     private function _upload_file($key)

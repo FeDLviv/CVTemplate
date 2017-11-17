@@ -194,9 +194,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </div>
     </div>
 
-    <script src="<?= base_url(); ?>js/jquery-3.2.1.min.js"></script>
-    <script src="<?= base_url(); ?>js/bootstrap.min.js"></script>
-    <script src="<?= base_url(); ?>js/bootstrap-editable.min.js"></script>
+    <script src="<?= base_url(); ?>js/lib/jquery-3.2.1.min.js"></script>
+    <script src="<?= base_url(); ?>js/lib/bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>js/lib/bootstrap-editable.min.js"></script>
     <script src="<?= base_url(); ?>js/admin.min.js"></script>
 
 </body>

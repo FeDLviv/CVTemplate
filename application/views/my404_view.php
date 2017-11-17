@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <head>
     <meta charset="utf-8" />
     <title>Error 404</title>
-    <link rel="shortcut icon" href="<?= base_url(); ?>images/icon.png" type="image/png">
+    <link rel="shortcut icon" href="<?= base_url(); ?>img/icon.png" type="image/png">
     <link rel="stylesheet" href="<?= base_url(); ?>css/normalize.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/style.min.css" type="text/css">

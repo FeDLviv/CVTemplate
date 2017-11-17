@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <head>
     <meta charset="utf-8" />
     <title><?= $head ?></title>
-    <link rel="shortcut icon" href="<?= base_url(); ?>images/icon.png" type="image/png">
+    <link rel="shortcut icon" href="<?= base_url(); ?>img/icon.png" type="image/png">
     <link rel="stylesheet" href="<?= base_url(); ?>css/normalize.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/style.min.css" type="text/css">
@@ -35,7 +35,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <header id="header">
             <div id="logo" data-tooltip="Download CV">
                 <?php if($CV_path !== '') :?>
-                    <a href="<?= $CV_path ?>" download><img src="images/logo.png" alt=""></a>
+                    <a href="<?= $CV_path ?>" download><img src="img/logo.png" alt=""></a>
                 <?php endif ;?>
             </div>
             <div id="photo">

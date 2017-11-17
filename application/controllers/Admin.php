@@ -170,7 +170,7 @@ class Admin extends CI_Controller
                     $config['upload_path']  = './images/';
                     $config['allowed_types'] = 'png';
                     $config['file_name'] = 'photo';
-                    $tmp = 'images/photo.png';
+                    $tmp = 'img/photo.png';
                     break;
                 default:
                     break;

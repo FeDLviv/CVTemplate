@@ -57,12 +57,31 @@
     align-items: stretch;
 }
 
+#wrapper a {
+    white-space: nowrap;
+}
+
+#wrapper span {
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+@media (max-width: 991px) {
+    #wrapper span {
+        font-size: 0.8em;
+    }
+}
+
+#wrapper.active span {
+    opacity: 0;
+    visibility: hidden;
+}
+
 #wrapper.active #sidebar {
-    margin-left: -20%;
+    width: 4em;
 }
 
 #wrapper.active #content {
-    margin-left: 0;
+    margin-left: 4em;
 }
 
 #sidebar {

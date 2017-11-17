@@ -35,22 +35,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         <nav id="sidebar" class="nav flex-column bg-gray">
             <a class="nav-link active" data-toggle="tab" href="#settings">
-                <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings
+                <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;<span>Settings</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#contact">
-                <i class="fa fa-address-card fa-fw" aria-hidden="true"></i>&nbsp;Contact
+                <i class="fa fa-address-card fa-fw" aria-hidden="true"></i>&nbsp;<span>Contact</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#education">
-                <i class="fa fa-university fa-fw" aria-hidden="true"></i>&nbsp;Education
+                <i class="fa fa-university fa-fw" aria-hidden="true"></i>&nbsp;<span>Education</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#work">
-                <i class="fa fa-briefcase fa-fw" aria-hidden="true"></i>&nbsp;Work experience
+                <i class="fa fa-briefcase fa-fw" aria-hidden="true"></i>&nbsp;<span>Work experience</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#skills">
-                <i class="fa fa-code fa-fw" aria-hidden="true"></i>&nbsp;Skills
+                <i class="fa fa-code fa-fw" aria-hidden="true"></i>&nbsp;<span>Skills</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#languages">
-                <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;Languages
+                <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span>Languages</span>
             </a>
         </nav>
 

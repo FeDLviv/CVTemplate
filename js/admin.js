@@ -2,8 +2,8 @@ $(function () {
 
     $('#menu-toggle').on('click', function (e) {
         e.preventDefault();
-        var deg = ($('#sidebar').hasClass('active')) ? 0 : 180;
-        $('#sidebar').toggleClass('active');
+        var deg = ($('#wrapper').hasClass('active')) ? 0 : 180;
+        $('#wrapper').toggleClass('active');
         $(this).find('i').stop(true, true).animate({
             borderSpacing: deg
         }, {

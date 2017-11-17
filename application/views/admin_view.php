@@ -31,7 +31,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </ul>
     </nav>
 
-    <div class="wrapper">
+    <div id="wrapper">
 
         <nav id="sidebar" class="nav flex-column bg-gray">
             <a class="nav-link active" data-toggle="tab" href="#settings">

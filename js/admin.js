@@ -94,17 +94,31 @@ $(function () {
             params.table = 'language';
             return params;
         },
-        validate: function (value) {
-            if ($.trim(value) == '') {
-                return 'This field is required';
-            } else if ($.trim(value).length > 100) {
-                return 'The maximum length is 100 characters';
-            }
-        }
+        validate: validateLanguageFields
     });
+
+    function validateLanguageFields(value) {
+        if ($.trim(value) == '') {
+            return 'This field is required';
+        } else if ($.trim(value).length > 100) {
+            return 'The maximum length is 100 characters';
+        }
+    }
 
     $('.language-ediatble').on('save', function (e, params) {
         $(this).closest('tr').find('td:eq(3)').text(params.response);
+    });
+
+    $('.language-ediatble-add').editable({
+        validate: validateLanguageFields
+    });
+
+    $('#butAddLanguage').on('click', function () {
+        var url = $(this).attr('data-ajax');
+        $('.language-ediatble-add').editable('submit', {
+            url: url
+            //succes (add tr, clear data), error
+        });
     });
 
     $('#tabLanguage button[data-url]').on('click', function (e) {

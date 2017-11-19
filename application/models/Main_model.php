@@ -128,6 +128,16 @@ class Main_model extends CI_Model
         }
     }
 
+    public function insert_language($data)
+    {
+        $this->db->insert('language', $data);
+        echo $this->db->insert_id();
+        //ПОВЕРНУТИ ВСТАВЛЕНИЙ ЗАПИС АБО ПОМИЛКУ + ЗМІНИТИ ДАТУ РЕДАГУВАННЯ, ЯКЩО ЗАПИТ ПРОЙШОВ
+        // $this->db->insert('language', $data);
+        // $query = $this->db->get_where('language', array('id' => $this->db->insert_id()));
+        // return $query->row();
+    }
+
     public function set_setting_by_name($key, $value)
     {
         $name = "application/config/myconfig.php";

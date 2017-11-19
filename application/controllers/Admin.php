@@ -157,7 +157,13 @@ class Admin extends CI_Controller
 
     public function ajax_language_enum()
     {
-          echo json_encode($this->main_model->get_enums('language', 'level'));
+        echo json_encode($this->main_model->get_enums('language', 'level'));
+    }
+
+    public function ajax_insert_language()
+    {
+        //add params table_name
+        echo $this->main_model->insert_language($this->input->post());
     }
 
     private function _upload_file($key)

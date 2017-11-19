@@ -16,25 +16,6 @@ $(function () {
         }, 'ease');
     });
 
-    $('#formContact').on('submit', function (e) {
-        e.preventDefault();
-        var form = $(this);
-        $.ajax({
-            url: form.attr('action'),
-            type: form.attr('method'),
-            data: form.serialize(),
-            success: function (result) {
-                var tmp = $.parseJSON(result);
-                if (tmp.html !== null) {
-                    form[0].reset();
-                }
-                $('#modalError').html(tmp.html);
-                $('#modalText').text(tmp.complete ? 'Save' : 'Error');
-                $('#modalDialog').modal('show')
-            }
-        });
-    });
-
     $('#formSettings').on('submit', function (e) {
         e.preventDefault();
         var form = $(this);
@@ -72,7 +53,7 @@ $(function () {
     function ajaxDelete(button, event) {
         event.preventDefault();
         var url = button.closest('form').attr('action');
-        url = url.substr(0, url.lastIndexOf('/')) + '/ajax_deleteFile';
+        url = url.substr(0, url.lastIndexOf('/')) + '/ajax_delete_file';
         var data = {
             name: button.attr('id').substring(3)
         };
@@ -85,11 +66,56 @@ $(function () {
         });
     };
 
-    $('#tabLanguage button').on('click', function (e) {
-        var tr = $(this).closest('tr');
+    $('#formContact').on('submit', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (result) {
+                var tmp = $.parseJSON(result);
+                if (tmp.html !== null) {
+                    form[0].reset();
+                }
+                $('#modalError').html(tmp.html);
+                $('#modalText').text(tmp.complete ? 'Save' : 'Error');
+                $('#modalDialog').modal('show')
+            }
+        });
+    });
+
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editable.defaults.highlight = '#5BC0DE';
+    $.fn.editableform.buttons = '<button type="submit" class="editable-submit btn btn-primary"><i class="fa fa-check"></i></button><button type="button" class="editable-cancel btn btn-outline-primary"><i class="fa fa-remove"></i></button>&nbsp';
+
+    $('.language-ediatble').editable({
+        params: function (params) {
+            params.table = 'language';
+            return params;
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'This field is required';
+            } else if ($.trim(value).length > 100) {
+                return 'The maximum length is 100 characters';
+            }
+        }
+    });
+
+    $('.language-ediatble').on('save', function (e, params) {
+        $(this).closest('tr').find('td:eq(3)').text(params.response);
+    });
+
+    $('#tabLanguage button[data-url]').on('click', function (e) {
+        deleteRow($(this));
+    });
+
+    function deleteRow(button) {
+        var tr = button.closest('tr');
         var id = tr.find('td:first').text();
-        var table = $(this).closest('table').attr('id').substring(3).toLowerCase();
-        $.post($(this).attr('data-url'), {
+        var table = button.closest('table').attr('id').substring(3).toLowerCase();
+        $.post(button.attr('data-url'), {
             'id': id,
             'table': table
         }, function (result) {
@@ -99,17 +125,6 @@ $(function () {
             $('#modalText').text(result ? 'Delete' : 'Error');
             $('#modalDialog').modal('show')
         });
-    });
-
-    $.fn.editable.defaults.mode = 'inline';
-    $.fn.editable.defaults.highlight = '#5BC0DE';
-    $.fn.editableform.buttons = '<button type="submit" class="editable-submit btn btn-primary"><i class="fa fa-check"></i></button>' + '<button type="button" class="editable-cancel btn btn-outline-primary"><i class="fa fa-remove"></i></button>';
-
-    $('.language-ediatble').editable({
-        params: function (params) {
-            params.table = 'language';
-            return params;
-        }
-    });
+    }
 
 });

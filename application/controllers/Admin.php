@@ -32,12 +32,13 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['settings'] = [
-            'Head' => $this->config->item('Head'),
-            'Title' => $this->config->item('Title'),
-            'CV_path' => $this->config->item('CV_path'),
-            'Photo_path' => $this->config->item('Photo_path'),
+        'Head' => $this->config->item('Head'),
+        'Title' => $this->config->item('Title'),
+        'CV_path' => $this->config->item('CV_path'),
+        'Photo_path' => $this->config->item('Photo_path'),
         ];
         $data['contacts'] = $this->main_model->get_contacts();
+        $data['tables'] = $this->main_model->get_tables_fields_list();
         $data['languages'] = $this->main_model->get_languages();
         $this->load->view('admin_view', $data);
     }
@@ -49,11 +50,11 @@ class Admin extends CI_Controller
             $pas = $this->admin_model->get_password($this->input->post('user', true));
             if (isset($pas) && password_verify($this->input->post('password', true), $pas)) {
                 $this->session->set_userdata(
-                    [
-                        'user'=>$this->input->post('user', true),
-                        'browser'=>$this->input->user_agent(),
-                        'address'=>$this->input->ip_address()
-                    ]
+                [
+                    'user'=>$this->input->post('user', true),
+                    'browser'=>$this->input->user_agent(),
+                    'address'=>$this->input->ip_address()
+                ]
                 );
                 redirect('/admin');
             } else {
@@ -70,28 +71,14 @@ class Admin extends CI_Controller
         redirect('/admin');
     }
 
-    public function ajax_contact()
-    {
-        $result = [
-            'complete' => false,
-            'html' => null
-        ];
-        if ($this->form_validation->run() == true) {
-            $result['complete'] = $this->main_model->set_contacts($this->input->post());
-        } else {
-            $result['html'] = validation_errors();
-        }
-        echo json_encode($result);
-    }
-
     public function ajax_settings()
     {
         $this->load->library('upload');
         $result = [
-            'complete' => false,
-            'html' => null,
-            'cv' => '',
-            'photo' => ''
+        'complete' => false,
+        'html' => null,
+        'cv' => '',
+        'photo' => ''
         ];
         if ($this->form_validation->run() == true) {
             $cv = $this->_upload_file('CV_path');
@@ -110,17 +97,17 @@ class Admin extends CI_Controller
         } else {
             $result['html'] = validation_errors();
         }
-        echo json_encode($result);
+            echo json_encode($result);
     }
 
-    public function ajax_deleteFile()
+    public function ajax_delete_file()
     {
         switch ($this->input->post('name')) {
             case 'CV_path':
             case 'Photo_path':
                 $path = $this->config->item($this->input->post('name'));
                 if (file_exists($path) && unlink($path)) {
-                    $this->main_model->clean_path_to_file($this->input->post('name'));
+                    $this->main_model->set_setting_by_name($this->input->post('name'), '');
                     echo true;
                 } else {
                     echo false;
@@ -132,33 +119,45 @@ class Admin extends CI_Controller
         }
     }
 
-    public function ajax_delete()
+    public function ajax_contact()
+    {
+        $result = [
+            'complete' => false,
+            'html' => null
+        ];
+        if ($this->form_validation->run() == true) {
+            $result['complete'] = $this->main_model->set_contacts($this->input->post());
+        } else {
+            $result['html'] = validation_errors();
+        }
+        echo json_encode($result);
+    }
+
+    public function ajax_delete_row()
     {
         $table = $this->input->post('table');
         $id = $this->input->post('id');
-        echo $this->main_model->delete_language($id);
+        echo $this->main_model->delete_row($table, $id);
     }
 
-    public function ajax_update()
+    public function ajax_update_row()
     {
-        $col =  $this->input->post('name');
-        $val =  $this->input->post('value');
-        $id =  $this->input->post('pk');
-        $result;
-        switch ($this->input->post('table')) {
-            case 'language':
-                $result = $this->main_model->update_language($col, $val, $id);
-                break;
-            default:
-                exit('Error');
-                break;
-        }
-        if ($result===true) {
-            echo $result;
+        $table = $this->input->post('table');
+        $id = $this->input->post('pk');
+        $col = $this->input->post('name');
+        $val = $this->input->post('value');
+        $result = $result = $this->main_model->update_row($table, $id, $col, $val);
+        if ($result === true) {
+            echo date('Y-m-d H:i:s', strtotime('+1 hours'));
         } else {
             $this->output->set_status_header('400');
             echo $result;
         }
+    }
+
+    public function ajax_language_enum()
+    {
+          echo json_encode($this->main_model->get_enums('language', 'level'));
     }
 
     private function _upload_file($key)

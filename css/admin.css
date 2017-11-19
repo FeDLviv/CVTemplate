@@ -61,7 +61,7 @@
     white-space: nowrap;
 }
 
-#wrapper span {
+#wrapper span.item {
     transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
@@ -71,7 +71,7 @@
     }
 }
 
-#wrapper.active span {
+#wrapper.active span.item {
     opacity: 0;
     visibility: hidden;
 }
@@ -145,4 +145,17 @@ label {
 .form-control::-ms-input-placeholder {
     color: #CCC;
     opacity: 0.9;
+}
+
+th {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.editable-error-block {
+    color: #F00;
 }

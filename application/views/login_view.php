@@ -27,7 +27,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control form-control-lg" name="user" value="<?= set_value('user') ?>" placeholder="Username" required maxlength="50">
+                            <input type="text" class="form-control form-control-lg" name="user" value="<?= set_value('user') ?>" autofocus="autofocus" placeholder="Username" required maxlength="50">
                         </div>
                         <?= form_error('user') ?>
                     </div>
@@ -44,7 +44,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <button type="submit" class="btn-block btn btn-primary btn-lg">Login</button>
                     </div>
                         
-                    <?php if(isset($msg)) :?>
+                    <?php if (isset($msg)) :?>
                         <p class="text-danger mt-4"><?= $msg ?></p>
                     <?php endif ?>
 

@@ -35,22 +35,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         <nav id="sidebar" class="nav flex-column bg-gray">
             <a class="nav-link active" data-toggle="tab" href="#settings">
-                <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;<span>Settings</span>
+                <i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;<span class="item">Settings</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#contact">
-                <i class="fa fa-address-card fa-fw" aria-hidden="true"></i>&nbsp;<span>Contact</span>
+                <i class="fa fa-address-card fa-fw" aria-hidden="true"></i>&nbsp;<span class="item">Contact</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#education">
-                <i class="fa fa-university fa-fw" aria-hidden="true"></i>&nbsp;<span>Education</span>
+                <i class="fa fa-university fa-fw" aria-hidden="true"></i>&nbsp;<span class="item">Education</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#work">
-                <i class="fa fa-briefcase fa-fw" aria-hidden="true"></i>&nbsp;<span>Work experience</span>
+                <i class="fa fa-briefcase fa-fw" aria-hidden="true"></i>&nbsp;<span class="item">Work experience</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#skills">
-                <i class="fa fa-code fa-fw" aria-hidden="true"></i>&nbsp;<span>Skills</span>
+                <i class="fa fa-code fa-fw" aria-hidden="true"></i>&nbsp;<span class="item">Skills</span>
             </a>
             <a class="nav-link" data-toggle="tab" href="#languages">
-                <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span>Languages</span>
+                <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="item">Languages</span>
             </a>
         </nav>
 
@@ -144,26 +144,40 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div id="languages" class="tab-pane fade">
                                 <h3><i class="fa fa-language" aria-hidden="true"></i>&nbsp;Languages</h3>
                                 <table id="tabLanguage" class="table table-bordered table-hover table-sm">
-                                    <?php if (count($languages)) :?>
-                                        <thead class="thead-inverse">
-                                            <tr>
-                                                <?php foreach ($languages[0] as $key => $val) :?>
-                                                        <th><?= $key ?></th>
-                                                <?php endforeach; ?> 
-                                                <th>delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <?php foreach ($tables['language'] as $col) :?>
+                                                <th><?= $col ?></th>
+                                            <?php endforeach; ?> 
+                                                <th>action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="text-center">New:</th>
+                                            <td><a href="" class="language-ediatble" data-name="name" data-type="text"></a></td>
+                                            <td><a href="" class="language-ediatble" data-name="level" data-type="select" data-source="<?= base_url(); ?>admin/ajax_language_enum"></a></td>
+                                            <th colspan="2" class="text-center">
+                                                <div class="btn-group btn-group-justified">
+                                                    <button class="btn btn-primary">Add</button>
+                                                    <button class="btn btn-outline-primary">Reset</button>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php if (count($languages)) :?>
                                             <?php foreach ($languages as $row) :?>
                                                 <tr>
-                                                    <?php foreach ($row as $key => $val) :?>
-                                                        <td><a href="" class="language-ediatble" data-name="<?= $key ?>" data-pk="<?= $row['id'] ?>" data-url="<?= base_url(); ?>admin/ajax_update"><?= $row[$key] ?></td></td>
-                                                    <?php endforeach; ?> 
-                                                    <th><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete">Delete</button></th>
+                                                    <td class="text-center"><?= $row['id'] ?></td>
+                                                    <td><a href="" class="language-ediatble" data-pk="<?= $row['id'] ?>" data-name="name" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['name'] ?></a></td>
+                                                    <td><a href="" class="language-ediatble" data-pk="<?= $row['id'] ?>" data-name="level" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="select" data-source="<?= base_url(); ?>admin/ajax_language_enum"><?= $row['level'] ?></a></td>
+                                                    <td class="text-center"><?= $row['dateChange'] ?></td>
+                                                    <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
                                                 <tr>
                                             <?php endforeach; ?>
-                                        </tbody>
-                                    <?php endif; ?> 
+                                        <?php endif; ?>     
+                                    </tbody>
                                 </table>
                             </div>
 

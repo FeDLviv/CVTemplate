@@ -163,8 +163,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                     <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="title" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['title'] ?></a></td>
                                                     <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="speciality" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['speciality'] ?></a></td>
                                                     <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="specialization" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['specialization'] ?></a></td>
-                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="date"><?= $row['start'] ?></a></td>
-                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="date"><?= $row['stop'] ?></a></td> -->
+                                                    <td><a href="" class="education-ediatble-date" data-pk="<?= $row['id'] ?>" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['start'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble-date" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['stop'] ?></a></td>
                                                     <td class="text-center"><?= $row['dateChange'] ?></td>
                                                     <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
                                                 <tr>
@@ -250,7 +250,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <script src="<?= base_url(); ?>js/lib/jquery-3.2.1.min.js"></script>
     <script src="<?= base_url(); ?>js/lib/bootstrap.min.js"></script>
-    <script src="<?= base_url(); ?>js/lib/moment.js"></script>
     <script src="<?= base_url(); ?>js/lib/bootstrap-editable.min.js"></script>
     <script src="<?= base_url(); ?>js/admin.min.js"></script>
 

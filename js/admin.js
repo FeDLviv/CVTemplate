@@ -174,8 +174,22 @@ $(function () {
             params: function (params) {
                 params.table = 'education';
                 return params;
+            },
+            validate: validateEducationFields
+        });
+        $('.education-ediatble-date').editable({
+            params: function (params) {
+                params.table = 'education';
+                return params;
+            },
+            validate: function (value) {
+                var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+                if (!pattern.test(value) || isNaN(Date.parse(value))) {
+                    return 'Is not a date';
+                }
             }
         });
+        //$(this).editable('setValue', null);
     };
 
     function validateEducationFields(value) {

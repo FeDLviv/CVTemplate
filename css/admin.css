@@ -85,6 +85,10 @@
 }
 
 @media (max-width: 767px) {
+    html,
+    body {
+        font-size: 0.8rem;
+    }
     #menu-toggle {
         display: none !important;
     }
@@ -97,6 +101,15 @@
     }
     #wrapper #content {
         margin-left: 4em;
+    }
+}
+
+@media (min-width: 1200px) {
+    #wrapper #sidebar {
+        width: 15em;
+    }
+    #wrapper #content {
+        margin-left: 15em;
     }
 }
 

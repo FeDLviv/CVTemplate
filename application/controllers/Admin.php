@@ -133,6 +133,27 @@ class Admin extends CI_Controller
         echo json_encode($result);
     }
 
+    public function ajax_insert_language()
+    {
+        if ($this->form_validation->run() == true) {
+            $result = $this->main_model->insert_language($this->input->post());
+            if (is_array($result)) {
+                echo json_encode($result);
+            } else {
+                $this->output->set_status_header('400');
+                echo $result;
+            }
+        } else {
+            $this->output->set_status_header('400');
+            echo $this->form_validation->error_string();
+        }
+    }
+
+    public function ajax_language_enum()
+    {
+        echo json_encode($this->main_model->get_enums('language', 'level'));
+    }
+
     public function ajax_delete_row()
     {
         $table = $this->input->post('table');
@@ -153,17 +174,6 @@ class Admin extends CI_Controller
             $this->output->set_status_header('400');
             echo $result;
         }
-    }
-
-    public function ajax_language_enum()
-    {
-        echo json_encode($this->main_model->get_enums('language', 'level'));
-    }
-
-    public function ajax_insert_language()
-    {
-        //add params table_name
-        echo $this->main_model->insert_language($this->input->post());
     }
 
     private function _upload_file($key)

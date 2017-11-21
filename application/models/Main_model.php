@@ -85,26 +85,45 @@ class Main_model extends CI_Model
 
     public function get_education()
     {
-        $query = $this->db->query('SELECT * FROM education ORDER BY start;');
+        $query = $this->db->query('SELECT * 
+                                    FROM education 
+                                    ORDER BY start;');
         return $query->result_array();
     }
 
     public function get_works()
     {
-        $query = $this->db->query('SELECT * FROM work ORDER BY start;');
+        $query = $this->db->query('SELECT * 
+                                    FROM work 
+                                    ORDER BY start;');
         return $query->result_array();
     }
 
     public function get_skills()
     {
-        $query = $this->db->query('SELECT * FROM skill ORDER BY FIELD(type, "os", "technologie", "database", "language") DESC, type, id;');
+        $query = $this->db->query('SELECT * 
+                                    FROM skill 
+                                    ORDER BY FIELD(type, "os", "technologie", "database", "language") DESC, type, id;');
         return $query->result_array();
     }
 
     public function get_languages()
     {
-        $query = $this->db->query('SELECT * FROM language ORDER BY level;');
+        $query = $this->db->query('SELECT * 
+                                    FROM language 
+                                    ORDER BY level;');
         return $query->result_array();
+    }
+
+    public function insert_language($data)
+    {
+        if($this->db->insert('language', $data)){
+            $this->set_setting_by_name('Last_change', date('Y-m-d'));
+            $query = $this->db->get_where('language', array('id' => $this->db->insert_id()));
+            return $query->row_array();
+        } else {
+            return $this->db->error()['message'];
+        }
     }
 
     public function delete_row($table, $id)
@@ -126,16 +145,6 @@ class Main_model extends CI_Model
         } else {
             return $this->db->error()['message'];
         }
-    }
-
-    public function insert_language($data)
-    {
-        $this->db->insert('language', $data);
-        echo $this->db->insert_id();
-        //ПОВЕРНУТИ ВСТАВЛЕНИЙ ЗАПИС АБО ПОМИЛКУ + ЗМІНИТИ ДАТУ РЕДАГУВАННЯ, ЯКЩО ЗАПИТ ПРОЙШОВ
-        // $this->db->insert('language', $data);
-        // $query = $this->db->get_where('language', array('id' => $this->db->insert_id()));
-        // return $query->row();
     }
 
     public function set_setting_by_name($key, $value)

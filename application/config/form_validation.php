@@ -54,7 +54,19 @@ $config = [
             'label' => 'Title',
             'rules' => 'trim|required|max_length[30]',
         ]
-    ]        
+    ],
+    'admin/ajax_insert_language' => [
+        [
+            'field' => 'name',
+            'label' => 'Name',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'level',
+            'label' => 'Level',
+            'rules' => 'trim|required|in_list[Native,Advanced,Upper-Intermediate,Intermediate,Pre-Intermediate,Elementary]'
+        ]
+    ]
 ];
 
 

@@ -154,14 +154,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th class="text-center">New:</th>
+                                            <th class="text-center">NEW:</th>
                                             <td><a href="" class="language-ediatble-add" data-name="name" data-type="text"></a></td>
                                             <td><a href="" class="language-ediatble-add" data-name="level" data-type="select" data-source="<?= base_url(); ?>admin/ajax_language_enum"></a></td>
                                             <th colspan="2" class="text-center">
-                                                <div class="btn-group btn-group-justified">
-                                                    <button id="butAddLanguage" class="btn btn-primary" data-ajax="<?= base_url(); ?>admin/ajax_insert_language">Add</button>
-                                                    <button class="btn btn-outline-primary">Reset</button>
-                                                </div>
+                                                <button id="butAddLanguage" class="btn btn-outline-primary btn-block" data-ajax="<?= base_url(); ?>admin/ajax_insert_language">Add</button>
                                             </th>
                                         </tr>
                                     </tfoot>

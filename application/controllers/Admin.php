@@ -39,6 +39,7 @@ class Admin extends CI_Controller
         ];
         $data['contacts'] = $this->main_model->get_contacts();
         $data['tables'] = $this->main_model->get_tables_fields_list();
+        $data['education'] = $this->main_model->get_education();
         $data['languages'] = $this->main_model->get_languages();
         $this->load->view('admin_view', $data);
     }

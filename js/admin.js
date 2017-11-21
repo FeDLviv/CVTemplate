@@ -167,4 +167,23 @@ $(function () {
         });
     };
 
+    setEducationEditable();
+
+    function setEducationEditable() {
+        $('.education-ediatble').editable({
+            params: function (params) {
+                params.table = 'education';
+                return params;
+            }
+        });
+    };
+
+    function validateEducationFields(value) {
+        if ($.trim(value) == '') {
+            return 'This field is required';
+        } else if ($.trim(value).length > 100) {
+            return 'The maximum length is 100 characters';
+        }
+    };
+
 });

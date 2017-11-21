@@ -130,7 +130,48 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
 
                             <div id="education" class="tab-pane fade">
-                                <h3>Education</h3>
+                                <h3><i class="fa fa-university fa-fw" aria-hidden="true"></i>&nbsp;Education</h3>
+                                <table id="tabEducation" class="table table-bordered table-hover table-sm">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <?php foreach ($tables['education'] as $col) :?>
+                                                <th><?= $col ?></th>
+                                            <?php endforeach; ?> 
+                                                <th>action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="text-center">NEW:</th>
+                                            <td><a href="" class="education-ediatble-add" data-name="institute" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add" data-name="title" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add" data-name="speciality" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add" data-name="specialization" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add" data-name="start" data-type="date"></a></td>
+                                            <td><a href="" class="education-ediatble-add" data-name="stop" data-type="date"></a></td>                                            
+                                            <th colspan="2" class="text-center">
+                                                <button id="butAddEducation" class="btn btn-outline-primary btn-block" data-ajax="<?= base_url(); ?>admin/ajax_insert_education">Add</button>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php if (count($education)) :?>
+                                            <?php foreach ($education as $row) :?>
+                                                <tr>
+                                                    <td class="text-center"><?= $row['id'] ?></td>
+                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="institute" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['institute'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="title" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['title'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="speciality" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['speciality'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="specialization" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['specialization'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="date"><?= $row['start'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="date"><?= $row['stop'] ?></a></td> -->
+                                                    <td class="text-center"><?= $row['dateChange'] ?></td>
+                                                    <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
+                                                <tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>     
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div id="work" class="tab-pane fade">
@@ -209,6 +250,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <script src="<?= base_url(); ?>js/lib/jquery-3.2.1.min.js"></script>
     <script src="<?= base_url(); ?>js/lib/bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>js/lib/moment.js"></script>
     <script src="<?= base_url(); ?>js/lib/bootstrap-editable.min.js"></script>
     <script src="<?= base_url(); ?>js/admin.min.js"></script>
 

@@ -66,6 +66,38 @@ $config = [
             'label' => 'Level',
             'rules' => 'trim|required|in_list[Native,Advanced,Upper-Intermediate,Intermediate,Pre-Intermediate,Elementary]'
         ]
+    ],
+    'admin/ajax_insert_education' => [
+        [
+            'field' => 'institute',
+            'label' => 'Institute',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'title',
+            'label' => 'Title',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'speciality',
+            'label' => 'Institute',
+            'rules' => 'trim|max_length[100]'
+        ],
+        [
+            'field' => 'specialization',
+            'label' => 'Specialization',
+            'rules' => 'trim|max_length[100]'
+        ],
+        [
+            'field' => 'start',
+            'label' => 'Start',
+            'rules' => 'trim|required|regex_match[/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/]'
+        ],
+        [
+            'field' => 'stop',
+            'label' => 'Stop',
+            'rules' => 'callback_test'
+        ]
     ]
 ];
 

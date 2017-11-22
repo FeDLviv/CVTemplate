@@ -134,6 +134,28 @@ class Admin extends CI_Controller
         echo json_encode($result);
     }
 
+    public function ajax_insert_education() 
+    {
+        //empty to string
+        //is date
+        if ($this->form_validation->run() == true) {
+            $data = $this->input->post();
+            $data['speciality'] = empty($data['speciality']) ? null : $data['speciality'];
+            $data['specialization'] = empty($data['specialization']) ? null : $data['specialization'];
+            $data['stop'] = empty($data['stop']) ? null : $data['stop'];
+            $result = $this->main_model->insert_education($data);
+            if (is_array($result)) {
+                echo json_encode($result);
+            } else {
+                $this->output->set_status_header('400');
+                echo $result;
+            }
+        } else {
+            $this->output->set_status_header('400');
+            echo $this->form_validation->error_string();
+        }
+    }
+
     public function ajax_insert_language()
     {
         if ($this->form_validation->run() == true) {
@@ -214,4 +236,13 @@ class Admin extends CI_Controller
         }
         return $result;
     }
+
+    // function test($email)
+    // {
+    //     if( strpos($email, '@abc123.com') !== FALSE ) return TRUE;
+    
+    //     $this->form_validation->set_message('email', 'Please use abc123 email only.');
+    
+    //     return FALSE;
+    // }
 }

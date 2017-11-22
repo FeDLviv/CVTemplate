@@ -5,7 +5,7 @@ $config['Head'] = 'CV Pyshnyi Fedir';
 $config['Title'] = 'Pyshnyi Fedir';
 $config['CV_path'] = 'files/cv.pdf';
 $config['Photo_path'] = 'img/photo.png';
-$config['Last_change'] = '2017-11-21';
+$config['Last_change'] = '2017-11-22';
 
 $config['contacts'] = [
     'Location' => 'Lviv',

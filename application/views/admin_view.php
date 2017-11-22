@@ -143,12 +143,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <tfoot>
                                         <tr>
                                             <th class="text-center">NEW:</th>
-                                            <td><a href="" class="education-ediatble-add" data-name="institute" data-type="text"></a></td>
-                                            <td><a href="" class="education-ediatble-add" data-name="title" data-type="text"></a></td>
-                                            <td><a href="" class="education-ediatble-add" data-name="speciality" data-type="text"></a></td>
-                                            <td><a href="" class="education-ediatble-add" data-name="specialization" data-type="text"></a></td>
-                                            <td><a href="" class="education-ediatble-add" data-name="start" data-type="date"></a></td>
-                                            <td><a href="" class="education-ediatble-add" data-name="stop" data-type="date"></a></td>                                            
+                                            <td><a href="" class="education-ediatble-add education-ediatble-add-req" data-name="institute" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add education-ediatble-add-req" data-name="title" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add education-ediatble-add-not-req" data-name="speciality" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add education-ediatble-add-not-req" data-name="specialization" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add education-ediatble-add-date" data-name="start" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble-add education-ediatble-add-date-not-req" data-name="stop" data-type="text"></a></td>                                            
                                             <th colspan="2" class="text-center">
                                                 <button id="butAddEducation" class="btn btn-outline-primary btn-block" data-ajax="<?= base_url(); ?>admin/ajax_insert_education">Add</button>
                                             </th>
@@ -161,10 +161,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                     <td class="text-center"><?= $row['id'] ?></td>
                                                     <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="institute" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['institute'] ?></a></td>
                                                     <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="title" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['title'] ?></a></td>
-                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="speciality" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['speciality'] ?></a></td>
-                                                    <td><a href="" class="education-ediatble" data-pk="<?= $row['id'] ?>" data-name="specialization" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['specialization'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble-not-req" data-pk="<?= $row['id'] ?>" data-name="speciality" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['speciality'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble-not-req" data-pk="<?= $row['id'] ?>" data-name="specialization" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['specialization'] ?></a></td>
                                                     <td><a href="" class="education-ediatble-date" data-pk="<?= $row['id'] ?>" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['start'] ?></a></td>
-                                                    <td><a href="" class="education-ediatble-date" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['stop'] ?></a></td>
+                                                    <td><a href="" class="education-ediatble-date-not-req" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['stop'] ?></a></td>
                                                     <td class="text-center"><?= $row['dateChange'] ?></td>
                                                     <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
                                                 <tr>

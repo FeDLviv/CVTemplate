@@ -97,11 +97,11 @@ $(function () {
                 params.table = 'language';
                 return params;
             },
-            validate: validateLanguageFields
+            validate: validateFields
         });
     };
 
-    function validateLanguageFields(value) {
+    function validateFields(value) {
         if ($.trim(value) == '') {
             return 'This field is required';
         } else if ($.trim(value).length > 100) {
@@ -114,7 +114,7 @@ $(function () {
     });
 
     $('.language-ediatble-add').editable({
-        validate: validateLanguageFields
+        validate: validateFields
     });
 
     $('#butAddLanguage').on('click', function () {
@@ -125,6 +125,7 @@ $(function () {
                 $('.language-ediatble-add').editable('setValue', null);
                 data = $.parseJSON(response);
                 var tr = $('#tabLanguage tbody tr:first').clone();
+                tr.addClass('table-info');
                 tr.find('td:eq(0)').text(data.id);
                 tr.find('td:eq(1) a').attr('data-pk', data.id);
                 tr.find('td:eq(1) a').text(data.name);
@@ -167,12 +168,23 @@ $(function () {
         });
     };
 
+    // НАЛАШТУВАННЯ X-editable ДЛЯ ПАНЕЛІ Education
     setEducationEditable();
 
     function setEducationEditable() {
         $('.education-ediatble').editable({
             params: function (params) {
                 params.table = 'education';
+                return params;
+            },
+            validate: validateFields
+        });
+        $('.education-ediatble-not-req').editable({
+            params: function (params) {
+                params.table = 'education';
+                if ($.trim(params.value) == '') {
+                    params.value = null
+                }
                 return params;
             },
             validate: validateEducationFields
@@ -182,22 +194,104 @@ $(function () {
                 params.table = 'education';
                 return params;
             },
-            validate: function (value) {
-                var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
-                if (!pattern.test(value) || isNaN(Date.parse(value))) {
-                    return 'Is not a date';
-                }
-            }
+            validate: validateEducationFieldsDate
         });
-        //$(this).editable('setValue', null);
+        $('.education-ediatble-date-not-req').editable({
+            params: function (params) {
+                params.table = 'education';
+                return params;
+            },
+            validate: validateEducationFieldsDateNotReq
+        });
     };
 
     function validateEducationFields(value) {
-        if ($.trim(value) == '') {
-            return 'This field is required';
-        } else if ($.trim(value).length > 100) {
+        if ($.trim(value).length > 100) {
             return 'The maximum length is 100 characters';
         }
     };
+
+    function validateEducationFieldsDate(value) {
+        var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+        if (!pattern.test(value) || isNaN(Date.parse(value))) {
+            return 'Please enter the date in the format YYYY-MM-DD';
+        }
+    };
+
+    function validateEducationFieldsDateNotReq(value) {
+        var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+        if ($.trim(value) !== '' && (!pattern.test(value) || isNaN(Date.parse(value)))) {
+            return 'Please enter the date in the format YYYY-MM-DD';
+        }
+    };
+
+    $('.education-ediatble').on('save', function (e, params) {
+        $(this).closest('tr').find('td:eq(7)').text(params.response);
+    });
+    $('.education-ediatble-not-req').on('save', function (e, params) {
+        $(this).closest('tr').find('td:eq(7)').text(params.response);
+    });
+    $('.education-ediatble-date').on('save', function (e, params) {
+        $(this).closest('tr').find('td:eq(7)').text(params.response);
+    });
+    $('.education-ediatble-date-not-req').on('save', function (e, params) {
+        $(this).closest('tr').find('td:eq(7)').text(params.response);
+    });
+
+    $('#tabEducation button[data-url]').on('click', function (e) {
+        deleteRow($(this));
+    });
+
+    $('.education-ediatble-add-req').editable({
+        validate: validateFields
+    });
+    $('.education-ediatble-add-not-req').editable({
+        validate: validateEducationFields
+    });
+    $('.education-ediatble-add-date').editable({
+        validate: validateEducationFieldsDate
+    });
+    $('.education-ediatble-add-date-not-req').editable({
+        validate: validateEducationFieldsDateNotReq
+    });
+
+    $('#butAddEducation').on('click', function () {
+        var url = $(this).attr('data-ajax');
+        $('.education-ediatble-add').editable('submit', {
+            url: url,
+            success: function (response, config) {
+                $('.education-ediatble-add').editable('setValue', null);
+                data = $.parseJSON(response);
+                var tr = $('#tabEducation tbody tr:first').clone();
+                tr.addClass('table-info');
+                tr.find('td:eq(0)').text(data.id);
+                tr.find('td:eq(1) a').attr('data-pk', data.id);
+                tr.find('td:eq(1) a').text(data.institute);
+                tr.find('td:eq(2) a').attr('data-pk', data.id);
+                tr.find('td:eq(2) a').text(data.title);
+                tr.find('td:eq(3) a').attr('data-pk', data.id);
+                tr.find('td:eq(3) a').text(data.speciality);
+                tr.find('td:eq(4) a').attr('data-pk', data.id);
+                tr.find('td:eq(4) a').text(data.specialization);
+                tr.find('td:eq(5) a').attr('data-pk', data.id);
+                tr.find('td:eq(5) a').text(data.start);
+                tr.find('td:eq(6) a').attr('data-pk', data.id);
+                tr.find('td:eq(6) a').text(data.stop);
+                tr.find('td:eq(7)').text(data.dateChange);
+                tr.find('button').on('click', function (e) {
+                    deleteRow($(this));
+                });
+                $('#tabEducation').append(tr);
+                setEducationEditable();
+            },
+            error: function (error) {
+                if (error && error.responseText) {
+                    $('#modalError').html(error.responseText);
+                }
+                $('#modalText').text('Error');
+                $('#modalDialog').modal('show')
+            }
+        });
+    });
 
 });

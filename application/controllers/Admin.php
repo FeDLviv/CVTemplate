@@ -136,8 +136,6 @@ class Admin extends CI_Controller
 
     public function ajax_insert_education() 
     {
-        //empty to string
-        //is date
         if ($this->form_validation->run() == true) {
             $data = $this->input->post();
             $data['speciality'] = empty($data['speciality']) ? null : $data['speciality'];
@@ -237,12 +235,21 @@ class Admin extends CI_Controller
         return $result;
     }
 
-    // function test($email)
-    // {
-    //     if( strpos($email, '@abc123.com') !== FALSE ) return TRUE;
-    
-    //     $this->form_validation->set_message('email', 'Please use abc123 email only.');
-    
-    //     return FALSE;
-    // }
+    public function is_date($val)
+    {
+        if(preg_match('/[^A-Za-z0-9\.\/\\\\]|\..*\.|\.$/', $val)) {
+            $test  = explode('-', $val);
+            if (checkdate($test[1], $test[2], $test[0])) {
+                return true;
+            } else {
+                $this->form_validation->set_message('is_date', 'The {field} field is not a date.');
+                return false;
+            }
+        } else if($val !== '') {
+            $this->form_validation->set_message('is_date', 'The {field} is not in the correct format.');
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

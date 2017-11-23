@@ -1,5 +1,6 @@
 $(function () {
 
+    //АКТИВАЦІЯ/ДЕАКТИВАЦІЯ БІЧНОЇ ПЕНЕЛІ
     $('#menu-toggle').on('click', function (e) {
         e.preventDefault();
         var deg = ($('#wrapper').hasClass('active')) ? 0 : 180;
@@ -85,10 +86,36 @@ $(function () {
         });
     });
 
+    // ЗАГАЛЬНІ НАЛАШТУВАННЯ X-editable 
     $.fn.editable.defaults.mode = 'inline';
     $.fn.editable.defaults.highlight = '#5BC0DE';
     $.fn.editableform.buttons = '<button type="submit" class="editable-submit btn btn-primary"><i class="fa fa-check"></i></button><button type="button" class="editable-cancel btn btn-outline-primary"><i class="fa fa-remove"></i></button>&nbsp';
 
+    function validateFields(value) {
+        if ($.trim(value) == '') {
+            return 'This field is required';
+        } else if ($.trim(value).length > 100) {
+            return 'The maximum length is 100 characters';
+        }
+    };
+
+    function deleteRow(button) {
+        var tr = button.closest('tr');
+        var id = tr.find('td:first').text();
+        var table = button.closest('table').attr('id').substring(3).toLowerCase();
+        $.post(button.attr('data-url'), {
+            'id': id,
+            'table': table
+        }, function (result) {
+            if (result) {
+                tr.remove();
+            }
+            $('#modalText').text(result ? 'Delete' : 'Error');
+            $('#modalDialog').modal('show')
+        });
+    };
+
+    // НАЛАШТУВАННЯ X-editable ДЛЯ ПАНЕЛІ Language
     setLanguageEditable();
 
     function setLanguageEditable() {
@@ -99,14 +126,6 @@ $(function () {
             },
             validate: validateFields
         });
-    };
-
-    function validateFields(value) {
-        if ($.trim(value) == '') {
-            return 'This field is required';
-        } else if ($.trim(value).length > 100) {
-            return 'The maximum length is 100 characters';
-        }
     };
 
     $('.language-ediatble').on('save', function (e, params) {
@@ -152,27 +171,11 @@ $(function () {
         deleteRow($(this));
     });
 
-    function deleteRow(button) {
-        var tr = button.closest('tr');
-        var id = tr.find('td:first').text();
-        var table = button.closest('table').attr('id').substring(3).toLowerCase();
-        $.post(button.attr('data-url'), {
-            'id': id,
-            'table': table
-        }, function (result) {
-            if (result) {
-                tr.remove();
-            }
-            $('#modalText').text(result ? 'Delete' : 'Error');
-            $('#modalDialog').modal('show')
-        });
-    };
-
     // НАЛАШТУВАННЯ X-editable ДЛЯ ПАНЕЛІ Education
     setEducationEditable();
 
     function setEducationEditable() {
-        $('.education-ediatble').editable({
+        $('.education-ediatble-req').editable({
             params: function (params) {
                 params.table = 'education';
                 return params;
@@ -182,14 +185,11 @@ $(function () {
         $('.education-ediatble-not-req').editable({
             params: function (params) {
                 params.table = 'education';
-                if ($.trim(params.value) == '') {
-                    params.value = null
-                }
                 return params;
             },
             validate: validateEducationFields
         });
-        $('.education-ediatble-date').editable({
+        $('.education-ediatble-date-req').editable({
             params: function (params) {
                 params.table = 'education';
                 return params;
@@ -228,19 +228,6 @@ $(function () {
     $('.education-ediatble').on('save', function (e, params) {
         $(this).closest('tr').find('td:eq(7)').text(params.response);
     });
-    $('.education-ediatble-not-req').on('save', function (e, params) {
-        $(this).closest('tr').find('td:eq(7)').text(params.response);
-    });
-    $('.education-ediatble-date').on('save', function (e, params) {
-        $(this).closest('tr').find('td:eq(7)').text(params.response);
-    });
-    $('.education-ediatble-date-not-req').on('save', function (e, params) {
-        $(this).closest('tr').find('td:eq(7)').text(params.response);
-    });
-
-    $('#tabEducation button[data-url]').on('click', function (e) {
-        deleteRow($(this));
-    });
 
     $('.education-ediatble-add-req').editable({
         validate: validateFields
@@ -248,7 +235,7 @@ $(function () {
     $('.education-ediatble-add-not-req').editable({
         validate: validateEducationFields
     });
-    $('.education-ediatble-add-date').editable({
+    $('.education-ediatble-add-date-req').editable({
         validate: validateEducationFieldsDate
     });
     $('.education-ediatble-add-date-not-req').editable({
@@ -292,6 +279,10 @@ $(function () {
                 $('#modalDialog').modal('show')
             }
         });
+    });
+
+    $('#tabEducation button[data-url]').on('click', function (e) {
+        deleteRow($(this));
     });
 
 });

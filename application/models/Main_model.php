@@ -91,6 +91,17 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    public function insert_education($data)
+    {
+        if($this->db->insert('education', $data)){
+            $this->set_setting_by_name('Last_change', date('Y-m-d'));
+            $query = $this->db->get_where('education', array('id' => $this->db->insert_id()));
+            return $query->row_array();
+        } else {
+            return $this->db->error()['message'];
+        }
+    }
+
     public function get_works()
     {
         $query = $this->db->query('SELECT * 
@@ -113,17 +124,6 @@ class Main_model extends CI_Model
                                     FROM language 
                                     ORDER BY level;');
         return $query->result_array();
-    }
-
-    public function insert_education($data)
-    {
-        if($this->db->insert('education', $data)){
-            $this->set_setting_by_name('Last_change', date('Y-m-d'));
-            $query = $this->db->get_where('education', array('id' => $this->db->insert_id()));
-            return $query->row_array();
-        } else {
-            return $this->db->error()['message'];
-        }
     }
 
     public function insert_language($data)

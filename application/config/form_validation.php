@@ -91,12 +91,12 @@ $config = [
         [
             'field' => 'start',
             'label' => 'Start',
-            'rules' => 'trim|required|regex_match[/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/]'
+            'rules' => 'trim|required|callback_is_date'
         ],
         [
             'field' => 'stop',
             'label' => 'Stop',
-            'rules' => 'callback_test'
+            'rules' => 'trim|callback_is_date'
         ]
     ]
 ];

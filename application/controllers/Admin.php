@@ -40,6 +40,8 @@ class Admin extends CI_Controller
         $data['contacts'] = $this->main_model->get_contacts();
         $data['tables'] = $this->main_model->get_tables_fields_list();
         $data['education'] = $this->main_model->get_education();
+        $data['works'] = $this->main_model->get_works();
+        $data['skills'] = $this->main_model->get_skills();
         $data['languages'] = $this->main_model->get_languages();
         $this->load->view('admin_view', $data);
     }
@@ -154,6 +156,40 @@ class Admin extends CI_Controller
         }
     }
 
+    public function ajax_insert_work() 
+    {
+        if ($this->form_validation->run() == true) {
+            $data = $this->input->post();
+            $data['stop'] = empty($data['stop']) ? null : $data['stop'];
+            $result = $this->main_model->insert_work($data);
+            if (is_array($result)) {
+                echo json_encode($result);
+            } else {
+                $this->output->set_status_header('400');
+                echo $result;
+            }
+        } else {
+            $this->output->set_status_header('400');
+            echo $this->form_validation->error_string();
+        }
+    }
+
+    public function ajax_insert_skill()
+    {
+        if ($this->form_validation->run() == true) {
+            $result = $this->main_model->insert_skill($this->input->post());
+            if (is_array($result)) {
+                echo json_encode($result);
+            } else {
+                $this->output->set_status_header('400');
+                echo $result;
+            }
+        } else {
+            $this->output->set_status_header('400');
+            echo $this->form_validation->error_string();
+        }
+    }
+
     public function ajax_insert_language()
     {
         if ($this->form_validation->run() == true) {
@@ -168,6 +204,16 @@ class Admin extends CI_Controller
             $this->output->set_status_header('400');
             echo $this->form_validation->error_string();
         }
+    }
+
+    public function ajax_skill_type_enum()
+    {
+        echo json_encode($this->main_model->get_enums('skill', 'type'));
+    }
+
+    public function ajax_skill_level_enum()
+    {
+        echo json_encode($this->main_model->get_enums('skill', 'level'));
     }
 
     public function ajax_language_enum()

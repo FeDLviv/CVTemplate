@@ -16,6 +16,18 @@ $config = [
             'rules' => 'trim|required|max_length[20]',
         ]
     ],
+    'admin/ajax_settings' => [
+        [
+            'field' => 'Head',
+            'label' => 'Head',
+            'rules' => 'trim|required|max_length[30]'
+        ],
+        [
+            'field' => 'Title',
+            'label' => 'Title',
+            'rules' => 'trim|required|max_length[30]',
+        ]
+    ],
     'admin/ajax_contact' => [
         [
             'field' => 'Location',
@@ -41,30 +53,6 @@ $config = [
             'field' => 'GitHub',
             'label' => 'GitHub',
             'rules' => 'trim|required|valid_url|max_length[100]'
-        ]
-    ],
-    'admin/ajax_settings' => [
-        [
-            'field' => 'Head',
-            'label' => 'Head',
-            'rules' => 'trim|required|max_length[30]'
-        ],
-        [
-            'field' => 'Title',
-            'label' => 'Title',
-            'rules' => 'trim|required|max_length[30]',
-        ]
-    ],
-    'admin/ajax_insert_language' => [
-        [
-            'field' => 'name',
-            'label' => 'Name',
-            'rules' => 'trim|required|max_length[100]'
-        ],
-        [
-            'field' => 'level',
-            'label' => 'Level',
-            'rules' => 'trim|required|in_list[Native,Advanced,Upper-Intermediate,Intermediate,Pre-Intermediate,Elementary]'
         ]
     ],
     'admin/ajax_insert_education' => [
@@ -97,6 +85,57 @@ $config = [
             'field' => 'stop',
             'label' => 'Stop',
             'rules' => 'trim|callback_is_date'
+        ]
+    ],
+    'admin/ajax_insert_work' => [
+        [
+            'field' => 'organisation',
+            'label' => 'Organisation',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'position',
+            'label' => 'Position',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'start',
+            'label' => 'Start',
+            'rules' => 'trim|required|callback_is_date'
+        ],
+        [
+            'field' => 'stop',
+            'label' => 'Stop',
+            'rules' => 'trim|callback_is_date'
+        ]
+    ],
+    'admin/ajax_insert_skill' => [
+        [
+            'field' => 'type',
+            'label' => 'Type',
+            'rules' => 'trim|required|in_list[os,technologie,database,language]'
+        ],
+        [
+            'field' => 'name',
+            'label' => 'Name',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'level',
+            'label' => 'Level',
+            'rules' => 'trim|required|in_list[Advanced,Upper-Intermediate,Intermediate,Pre-Intermediate,Elementary,Basics]'
+        ]
+    ],
+    'admin/ajax_insert_language' => [
+        [
+            'field' => 'name',
+            'label' => 'Name',
+            'rules' => 'trim|required|max_length[100]'
+        ],
+        [
+            'field' => 'level',
+            'label' => 'Level',
+            'rules' => 'trim|required|in_list[Native,Advanced,Upper-Intermediate,Intermediate,Pre-Intermediate,Elementary]'
         ]
     ]
 ];

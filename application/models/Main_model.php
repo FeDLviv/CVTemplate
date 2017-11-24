@@ -110,12 +110,34 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    public function insert_work($data)
+    {
+        if($this->db->insert('work', $data)){
+            $this->set_setting_by_name('Last_change', date('Y-m-d'));
+            $query = $this->db->get_where('work', array('id' => $this->db->insert_id()));
+            return $query->row_array();
+        } else {
+            return $this->db->error()['message'];
+        }
+    }
+
     public function get_skills()
     {
         $query = $this->db->query('SELECT * 
                                     FROM skill 
                                     ORDER BY FIELD(type, "os", "technologie", "database", "language") DESC, type, id;');
         return $query->result_array();
+    }
+
+    public function insert_skill($data)
+    {
+        if($this->db->insert('skill', $data)){
+            $this->set_setting_by_name('Last_change', date('Y-m-d'));
+            $query = $this->db->get_where('skill', array('id' => $this->db->insert_id()));
+            return $query->row_array();
+        } else {
+            return $this->db->error()['message'];
+        }
     }
 
     public function get_languages()

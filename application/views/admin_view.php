@@ -175,11 +175,92 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
 
                             <div id="work" class="tab-pane fade">
-                                <h3>Work experience</h3>
+                                <h3><i class="fa fa-briefcase fa-fw" aria-hidden="true"></i>&nbsp;Work experience</h3>
+                                <table id="tabWork" class="table table-bordered table-hover table-sm">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <?php foreach ($tables['work'] as $col) :?>
+                                                <th><?= $col ?></th>
+                                            <?php endforeach; ?> 
+                                                <th>action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="text-center">NEW:</th>
+                                            <td><a href="" class="work-ediatble-add work-ediatble-add-req" data-name="organisation" data-type="text"></a></td>
+                                            <td><a href="" class="work-ediatble-add work-ediatble-add-req" data-name="position" data-type="text"></a></td>
+                                            <td><a href="" class="work-ediatble-add work-ediatble-add-date-req" data-name="start" data-type="text"></a></td>
+                                            <td><a href="" class="work-ediatble-add work-ediatble-add-date-not-req" data-name="stop" data-type="text"></a></td>                                            
+                                            <th colspan="2" class="text-center">
+                                                <button id="butAddWork" class="btn btn-outline-primary btn-block" data-ajax="<?= base_url(); ?>admin/ajax_insert_work">Add</button>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr style="display:none">
+                                            <td class="text-center"></td>
+                                            <td><a href="" class="work-ediatble work-ediatble-req" data-pk="" data-name="organisation" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="work-ediatble work-ediatble-req" data-pk="" data-name="position" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="work-ediatble work-ediatble-date-req" data-pk="" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="work-ediatble work-ediatble-date-not-req" data-pk="" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
+                                        <tr>
+                                        <?php if (count($works)) :?>
+                                            <?php foreach ($works as $row) :?>
+                                                <tr>
+                                                    <td class="text-center"><?= $row['id'] ?></td>
+                                                    <td><a href="" class="work-ediatble work-ediatble-req" data-pk="<?= $row['id'] ?>" data-name="organisation" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['organisation'] ?></a></td>
+                                                    <td><a href="" class="work-ediatble work-ediatble-req" data-pk="<?= $row['id'] ?>" data-name="position" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['position'] ?></a></td>
+                                                    <td><a href="" class="work-ediatble work-ediatble-date-req" data-pk="<?= $row['id'] ?>" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['start'] ?></a></td>
+                                                    <td><a href="" class="work-ediatble work-ediatble-date-not-req" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['stop'] ?></a></td>
+                                                    <td class="text-center"><?= $row['dateChange'] ?></td>
+                                                    <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
+                                                <tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>     
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div id="skills" class="tab-pane fade">
-                                <h3>Skills</h3>
+                                <h3><i class="fa fa-code fa-fw" aria-hidden="true"></i>&nbsp;Skills</h3>
+                                <table id="tabSkill" class="table table-bordered table-hover table-sm">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <?php foreach ($tables['skill'] as $col) :?>
+                                                <th><?= $col ?></th>
+                                            <?php endforeach; ?> 
+                                                <th>action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="text-center">NEW:</th>
+                                            <td><a href="" class="skill-ediatble-add" data-name="type" data-type="select" data-source="<?= base_url(); ?>admin/ajax_skill_type_enum"></a></td>
+                                            <td><a href="" class="skill-ediatble-add" data-name="name" data-type="text"></a></td>
+                                            <td><a href="" class="skill-ediatble-add" data-name="level" data-type="select" data-source="<?= base_url(); ?>admin/ajax_skill_level_enum"></a></td>
+                                            <th colspan="2" class="text-center">
+                                                <button id="butAddSkill" class="btn btn-outline-primary btn-block" data-ajax="<?= base_url(); ?>admin/ajax_insert_skill">Add</button>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php if (count($skills)) :?>
+                                            <?php foreach ($skills as $row) :?>
+                                                <tr>
+                                                    <td class="text-center"><?= $row['id'] ?></td>
+                                                    <td><a href="" class="skill-ediatble" data-pk="<?= $row['id'] ?>" data-name="type" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="select" data-source="<?= base_url(); ?>admin/ajax_skill_type_enum"><?= $row['type'] ?></a></td>
+                                                    <td><a href="" class="skill-ediatble" data-pk="<?= $row['id'] ?>" data-name="name" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"><?= $row['name'] ?></a></td>
+                                                    <td><a href="" class="skill-ediatble" data-pk="<?= $row['id'] ?>" data-name="level" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="select" data-source="<?= base_url(); ?>admin/ajax_skill_level_enum"><?= $row['level'] ?></a></td>
+                                                    <td class="text-center"><?= $row['dateChange'] ?></td>
+                                                    <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
+                                                <tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>     
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div id="languages" class="tab-pane fade">

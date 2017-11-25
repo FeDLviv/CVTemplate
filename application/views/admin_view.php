@@ -155,6 +155,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <tr style="display:none">
+                                            <td class="text-center"></td>
+                                            <td><a href="" class="education-ediatble education-ediatble-req" data-pk="" data-name="institute" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble education-ediatble-req" data-pk="" data-name="title" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble education-ediatble-not-req" data-pk="" data-name="speciality" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble education-ediatble-not-req" data-pk="" data-name="specialization" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble education-ediatble-date-req" data-pk="" data-name="start" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="education-ediatble education-ediatble-date-not-req" data-pk="<?= $row['id'] ?>" data-name="stop" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>   
+                                        <tr>
                                         <?php if (count($education)) :?>
                                             <?php foreach ($education as $row) :?>
                                                 <tr>
@@ -247,6 +258,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <tr style="display:none">
+                                            <td class="text-center"></td>
+                                            <td><a href="" class="skill-ediatble" data-pk="" data-name="type" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="select" data-source="<?= base_url(); ?>admin/ajax_skill_type_enum"></a></td>
+                                            <td><a href="" class="skill-ediatble" data-pk="" data-name="name" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="skill-ediatble" data-pk="" data-name="level" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="select" data-source="<?= base_url(); ?>admin/ajax_skill_level_enum"></a></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
+                                        </tr>
                                         <?php if (count($skills)) :?>
                                             <?php foreach ($skills as $row) :?>
                                                 <tr>
@@ -285,6 +304,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <tr style="display:none">
+                                            <td class="text-center"></td>
+                                            <td><a href="" class="language-ediatble" data-pk="" data-name="name" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="text"></a></td>
+                                            <td><a href="" class="language-ediatble" data-pk="" data-name="level" data-url="<?= base_url(); ?>admin/ajax_update_row" data-type="select" data-source="<?= base_url(); ?>admin/ajax_language_enum"></a></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"><button class="btn btn-outline-primary" data-url="<?= base_url(); ?>admin/ajax_delete_row">Delete</button></td>
+                                        </tr>
                                         <?php if (count($languages)) :?>
                                             <?php foreach ($languages as $row) :?>
                                                 <tr>

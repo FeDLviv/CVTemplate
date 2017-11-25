@@ -194,7 +194,7 @@ $(function () {
         $('.education-ediatble-add').editable('submit', {
             url: url,
             success: function (response, config) {
-                $('.education-ediatble-add').editable('setValue', null);
+                $('.education-ediatble-add').editable('setValue', '');
                 data = $.parseJSON(response);
                 var tr = $('#tabEducation tbody tr:first').clone();
                 tr.addClass('table-info');
@@ -215,6 +215,7 @@ $(function () {
                 tr.find('button').on('click', function (e) {
                     deleteRow($(this));
                 });
+                tr.css('display', '');
                 $('#tabEducation').append(tr);
                 setEducationEditable();
             },
@@ -278,7 +279,7 @@ $(function () {
         $('.work-ediatble-add').editable('submit', {
             url: url,
             success: function (response, config) {
-                $('.work-ediatble-add').editable('setValue', null);
+                $('.work-ediatble-add').editable('setValue', '');
                 data = $.parseJSON(response);
                 var tr = $('#tabWork tbody tr:first').clone();
                 tr.addClass('table-info');
@@ -295,7 +296,6 @@ $(function () {
                 tr.find('button').on('click', function (e) {
                     deleteRow($(this));
                 });
-                //БАГ
                 tr.css('display', '');
                 $('#tabWork').append(tr);
                 setWorkEditable();
@@ -311,62 +311,6 @@ $(function () {
     });
 
     $('#tabWork button[data-url]').on('click', function (e) {
-        deleteRow($(this));
-    });
-
-    // НАЛАШТУВАННЯ X-editable ДЛЯ ПАНЕЛІ Language
-    setLanguageEditable();
-
-    function setLanguageEditable() {
-        $('.language-ediatble').editable({
-            params: function (params) {
-                params.table = 'language';
-                return params;
-            },
-            validate: validateFields
-        });
-    };
-
-    $('.language-ediatble').on('save', function (e, params) {
-        $(this).closest('tr').find('td:eq(3)').text(params.response);
-    });
-
-    $('.language-ediatble-add').editable({
-        validate: validateFields
-    });
-
-    $('#butAddLanguage').on('click', function () {
-        var url = $(this).attr('data-ajax');
-        $('.language-ediatble-add').editable('submit', {
-            url: url,
-            success: function (response, config) {
-                $('.language-ediatble-add').editable('setValue', null);
-                data = $.parseJSON(response);
-                var tr = $('#tabLanguage tbody tr:first').clone();
-                tr.addClass('table-info');
-                tr.find('td:eq(0)').text(data.id);
-                tr.find('td:eq(1) a').attr('data-pk', data.id);
-                tr.find('td:eq(1) a').text(data.name);
-                tr.find('td:eq(2) a').attr('data-pk', data.id);
-                tr.find('td:eq(2) a').text(data.level);
-                tr.find('td:eq(3)').text(data.dateChange);
-                tr.find('button').on('click', function (e) {
-                    deleteRow($(this));
-                });
-                $('#tabLanguage').append(tr);
-                setLanguageEditable();
-            },
-            error: function (error) {
-                if (error && error.responseText) {
-                    $('#modalError').html(error.responseText);
-                }
-                $('#modalText').text('Error');
-                $('#modalDialog').modal('show')
-            }
-        });
-    });
-
-    $('#tabLanguage button[data-url]').on('click', function (e) {
         deleteRow($(this));
     });
 
@@ -396,7 +340,7 @@ $(function () {
         $('.skill-ediatble-add').editable('submit', {
             url: url,
             success: function (response, config) {
-                $('.skill-ediatble-add').editable('setValue', null);
+                $('.skill-ediatble-add').editable('setValue', '');
                 data = $.parseJSON(response);
                 var tr = $('#tabSkill tbody tr:first').clone();
                 tr.addClass('table-info');
@@ -411,6 +355,7 @@ $(function () {
                 tr.find('button').on('click', function (e) {
                     deleteRow($(this));
                 });
+                tr.css('display', '');
                 $('#tabSkill').append(tr);
                 setSkillEditable();
             },
@@ -427,5 +372,62 @@ $(function () {
     $('#tabSkill button[data-url]').on('click', function (e) {
         deleteRow($(this));
     });
+
+     // НАЛАШТУВАННЯ X-editable ДЛЯ ПАНЕЛІ Language
+     setLanguageEditable();
+     
+         function setLanguageEditable() {
+             $('.language-ediatble').editable({
+                 params: function (params) {
+                     params.table = 'language';
+                     return params;
+                 },
+                 validate: validateFields
+             });
+         };
+     
+         $('.language-ediatble').on('save', function (e, params) {
+             $(this).closest('tr').find('td:eq(3)').text(params.response);
+         });
+     
+         $('.language-ediatble-add').editable({
+             validate: validateFields
+         });
+     
+         $('#butAddLanguage').on('click', function () {
+             var url = $(this).attr('data-ajax');
+             $('.language-ediatble-add').editable('submit', {
+                 url: url,
+                 success: function (response, config) {
+                     $('.language-ediatble-add').editable('setValue', '');
+                     data = $.parseJSON(response);
+                     var tr = $('#tabLanguage tbody tr:first').clone();
+                     tr.addClass('table-info');
+                     tr.find('td:eq(0)').text(data.id);
+                     tr.find('td:eq(1) a').attr('data-pk', data.id);
+                     tr.find('td:eq(1) a').text(data.name);
+                     tr.find('td:eq(2) a').attr('data-pk', data.id);
+                     tr.find('td:eq(2) a').text(data.level);
+                     tr.find('td:eq(3)').text(data.dateChange);
+                     tr.find('button').on('click', function (e) {
+                         deleteRow($(this));
+                     });
+                     tr.css('display', '');
+                     $('#tabLanguage').append(tr);
+                     setLanguageEditable();
+                 },
+                 error: function (error) {
+                     if (error && error.responseText) {
+                         $('#modalError').html(error.responseText);
+                     }
+                     $('#modalText').text('Error');
+                     $('#modalDialog').modal('show')
+                 }
+             });
+         });
+     
+         $('#tabLanguage button[data-url]').on('click', function (e) {
+             deleteRow($(this));
+         });
 
 });

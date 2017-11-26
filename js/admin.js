@@ -1,6 +1,6 @@
 $(function () {
 
-    //АКТИВАЦІЯ/ДЕАКТИВАЦІЯ БІЧНОЇ ПЕНЕЛІ
+    //АКТИВАЦІЯ/ДЕАКТИВАЦІЯ БІЧНОЇ ПАНЕЛІ
     $('#menu-toggle').on('click', function (e) {
         e.preventDefault();
         var deg = ($('#wrapper').hasClass('active')) ? 0 : 180;
@@ -17,6 +17,12 @@ $(function () {
         }, 'ease');
     });
 
+    //ОБРОБКА ПОДІЇ ЗАКРИТТЯ ДІАЛОГОВОГО ВІКНА
+    $('#modalDialog').on('hidden.bs.modal', function (e) {
+        $('#modalError').html('');
+    })
+
+    //AJAX ВІДПРАВКА ДАНИХ ФОРМИ Settings НА СЕРВЕР ТА ОБРОБКА РЕЗУЛЬТАТУ
     $('#formSettings').on('submit', function (e) {
         e.preventDefault();
         var form = $(this);
@@ -43,14 +49,17 @@ $(function () {
         });
     });
 
+    //ОБРОБНИК ДЛЯ КНОПКИ ВИДАЛЕННЯ ФАЙЛА CV
     $('#butCV_path').on('click', function (e) {
         ajaxDelete($(this), e);
     });
 
+    //ОБРОБНИК ДЛЯ КНОПКИ ВИДАЛЕННЯ ФАЙЛА Photo
     $('#butPhoto_path').on('click', function (e) {
         ajaxDelete($(this), e);
     });
 
+    //AJAX ФУНКЦІЯ ВІДПРАВЛЯЄ НА СЕРВЕР НАЗВУ ФАЙЛА ДЛЯ ВИДАЛЕННЯ ТА ОБРОБЛЯЄ РЕЗУЛЬТАТ
     function ajaxDelete(button, event) {
         event.preventDefault();
         var url = button.closest('form').attr('action');
@@ -67,6 +76,7 @@ $(function () {
         });
     };
 
+    //AJAX ВІДПРАВКА ДАНИХ ФОРМИ Contact НА СЕРВЕР ТА ОБРОБКА РЕЗУЛЬТАТУ
     $('#formContact').on('submit', function (e) {
         e.preventDefault();
         var form = $(this);
@@ -86,12 +96,12 @@ $(function () {
         });
     });
 
-    // ЗАГАЛЬНІ НАЛАШТУВАННЯ X-editable 
+    //ЗАГАЛЬНІ НАЛАШТУВАННЯ X-editable 
     $.fn.editable.defaults.mode = 'inline';
     $.fn.editable.defaults.highlight = '#5BC0DE';
     $.fn.editableform.buttons = '<button type="submit" class="editable-submit btn btn-primary"><i class="fa fa-check"></i></button><button type="button" class="editable-cancel btn btn-outline-primary"><i class="fa fa-remove"></i></button>&nbsp';
 
-    //ВАЛІДАЦІЯ "СТАНДАРТНИХ" ПОЛІВ (ОБОВ'ЯЗКОВІ + НЕ БІЛЬШЕ 100 СИМВОЛІВ)
+    //ФУНКЦІЯ ДЛЯ ВАЛІДАЦІї "СТАНДАРТНИХ" ПОЛІВ (ОБОВ'ЯЗКОВІ + НЕ БІЛЬШЕ 100 СИМВОЛІВ)
     function validateFields(value) {
         if ($.trim(value) == '') {
             return 'This field is required';
@@ -100,7 +110,7 @@ $(function () {
         }
     };
 
-    //ВАЛІДАЦІЯ ПОЛІВ З ДАТОЮ (ФОРМАТ ДАТИ)
+    //ФУНКЦІЯ ДЛЯ ВАЛІДАЦІї ПОЛІВ З ДАТОЮ (ФОРМАТ ДАТИ)
     function validateDateFields(value) {
         var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
         if (!pattern.test(value) || isNaN(Date.parse(value))) {
@@ -108,7 +118,7 @@ $(function () {
         }
     };
 
-    //ВАЛІДАЦІЯ ПОЛІВ З ДАТОЮ (НЕ ОБОВ'ЯЗКОВЕ + ФОРМАТ ДАТИ)
+    //ФУНКЦІЯ ДЛЯ ВАЛІДАЦІї ПОЛІВ З ДАТОЮ (НЕ ОБОВ'ЯЗКОВЕ + ФОРМАТ ДАТИ)
     function validateDateFieldsNotReq(value) {
         var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
         if ($.trim(value) !== '' && (!pattern.test(value) || isNaN(Date.parse(value)))) {
@@ -116,6 +126,21 @@ $(function () {
         }
     };
 
+    //ФУНКЦІЯ ДЛЯ ОБРОБКИ ПОМИЛКИ ПРИ ДОДАВАННІ РЯДКА(ЗАПИСУ) В ТАБЛИЦЮ(БАЗУ ДАНИХ)
+    function addRowError(error) {
+        $('#modalError').html('');
+        if (error && error.responseText) {
+            $('#modalError').html(error.responseText);
+        } else {
+            $.each(error, function (k, v) {
+                $('#modalError').append('<small class="form-text text-muted text-danger">' + k + ': ' + v + '</small>');
+            });
+        }
+        $('#modalText').text('Error');
+        $('#modalDialog').modal('show');
+    }
+
+    //ФУНКЦІЯ ДЛЯ ВИДАЛЕННЯ РЯДКА З ТАБЛИЦІ
     function deleteRow(button) {
         var tr = button.closest('tr');
         var id = tr.find('td:first').text();
@@ -219,17 +244,7 @@ $(function () {
                 $('#tabEducation').append(tr);
                 setEducationEditable();
             },
-            error: function (error) {
-                if (error && error.responseText) {
-                    $('#modalError').html(error.responseText);
-                } else {
-                    $.each(error, function (k, v) {
-                        $('#modalError').append(k + ": " + v + "<br>");
-                    });
-                }
-                $('#modalText').text('Error');
-                $('#modalDialog').modal('show')
-            }
+            error: addRowError
         });
     });
 
@@ -304,17 +319,7 @@ $(function () {
                 $('#tabWork').append(tr);
                 setWorkEditable();
             },
-            error: function (error) {
-                if (error && error.responseText) {
-                    $('#modalError').html(error.responseText);
-                } else {
-                    $.each(error, function (k, v) {
-                        $('#modalError').append(k + ": " + v + "<br>");
-                    });
-                }
-                $('#modalText').text('Error');
-                $('#modalDialog').modal('show')
-            }
+            error: addRowError
         });
     });
 
@@ -367,17 +372,7 @@ $(function () {
                 $('#tabSkill').append(tr);
                 setSkillEditable();
             },
-            error: function (error) {
-                if (error && error.responseText) {
-                    $('#modalError').html(error.responseText);
-                } else {
-                    $.each(error, function (k, v) {
-                        $('#modalError').append(k + ": " + v + "<br>");
-                    });
-                }
-                $('#modalText').text('Error');
-                $('#modalDialog').modal('show')
-            }
+            error: addRowError
         });
     });
 
@@ -428,17 +423,7 @@ $(function () {
                 $('#tabLanguage').append(tr);
                 setLanguageEditable();
             },
-            error: function (error) {
-                if (error && error.responseText) {
-                    $('#modalError').html(error.responseText);
-                } else {
-                    $.each(error, function (k, v) {
-                        $('#modalError').append(k + ": " + v + "<br>");
-                    });
-                }
-                $('#modalText').text('Error');
-                $('#modalDialog').modal('show')
-            }
+            error: addRowError
         });
     });
 

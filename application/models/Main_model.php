@@ -93,13 +93,7 @@ class Main_model extends CI_Model
 
     public function insert_education($data)
     {
-        if($this->db->insert('education', $data)){
-            $this->set_setting_by_name('Last_change', date('Y-m-d'));
-            $query = $this->db->get_where('education', array('id' => $this->db->insert_id()));
-            return $query->row_array();
-        } else {
-            return $this->db->error()['message'];
-        }
+        return $this->insert_row('education', $data);
     }
 
     public function get_works()
@@ -112,13 +106,7 @@ class Main_model extends CI_Model
 
     public function insert_work($data)
     {
-        if($this->db->insert('work', $data)){
-            $this->set_setting_by_name('Last_change', date('Y-m-d'));
-            $query = $this->db->get_where('work', array('id' => $this->db->insert_id()));
-            return $query->row_array();
-        } else {
-            return $this->db->error()['message'];
-        }
+        return $this->insert_row('work', $data);
     }
 
     public function get_skills()
@@ -131,13 +119,7 @@ class Main_model extends CI_Model
 
     public function insert_skill($data)
     {
-        if($this->db->insert('skill', $data)){
-            $this->set_setting_by_name('Last_change', date('Y-m-d'));
-            $query = $this->db->get_where('skill', array('id' => $this->db->insert_id()));
-            return $query->row_array();
-        } else {
-            return $this->db->error()['message'];
-        }
+        return $this->insert_row('skill', $data);
     }
 
     public function get_languages()
@@ -150,13 +132,7 @@ class Main_model extends CI_Model
 
     public function insert_language($data)
     {
-        if($this->db->insert('language', $data)){
-            $this->set_setting_by_name('Last_change', date('Y-m-d'));
-            $query = $this->db->get_where('language', array('id' => $this->db->insert_id()));
-            return $query->row_array();
-        } else {
-            return $this->db->error()['message'];
-        }
+        return $this->insert_row('language', $data);
     }
 
     public function delete_row($table, $id)
@@ -194,6 +170,17 @@ class Main_model extends CI_Model
         fwrite($handle, $content);
         fclose($handle);
         return true;
+    }
+
+    private function insert_row($table, $data)
+    {
+        if($this->db->insert($table, $data)){
+            $this->set_setting_by_name('Last_change', date('Y-m-d'));
+            $query = $this->db->get_where($table, array('id' => $this->db->insert_id()));
+            return $query->row_array();
+        } else {
+            return $this->db->error()['message'];
+        }
     }
 
     private function set_last_change($content)

@@ -233,7 +233,16 @@ class Admin extends CI_Controller
         $table = $this->input->post('table');
         $id = $this->input->post('pk');
         $col = $this->input->post('name');
-        $val = $this->input->post('value');
+        switch ($col) {
+            case 'speciality':
+            case 'specialization':
+            case 'stop':
+                $val = empty($this->input->post('value'))? null : $this->input->post('value');
+                break;
+            default:
+                $val = $this->input->post('value');
+                break;
+        }
         $result = $result = $this->main_model->update_row($table, $id, $col, $val);
         if ($result === true) {
             echo date('Y-m-d H:i:s', strtotime('+1 hours'));

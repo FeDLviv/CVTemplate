@@ -85,6 +85,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <?php endforeach; ?>
                                     <button id="butContact" type="submit" class="btn btn-primary">Save</button>
                                 </form>
+                                <h3 class="mt-5"><i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp;Password</h3>
+                                <form id="formPassword" action="<?= base_url(); ?>admin/ajax_change_password" method="POST">
+                                    <div class="form-group row">
+                                        <label for="user" class="col-3 col-form-label">User:</label>
+                                        <div class="col-9">
+                                            <input id="user" class="form-control" type="text" name="user" value="root" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="oldPas" class="col-3 col-form-label">Old password:</label>
+                                        <div class="col-9">
+                                            <input id="oldPas" class="form-control" type="password" name="oldPas" required maxlength="30">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="newPas" class="col-3 col-form-label">New password:</label>
+                                        <div class="col-9">
+                                            <input id="newPas" class="form-control" type="password" name="newPas" required maxlength="30">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="confNewPas" class="col-3 col-form-label">Confirm new password:</label>
+                                        <div class="col-9">
+                                            <input id="confNewPas" class="form-control" type="password" name="confNewPas" required maxlength="30">
+                                        </div>
+                                    </div>
+                                    <button id="butAdmin" type="submit" class="btn btn-primary">Save</button>
+                                </form>
                             </div>
 
                             <div id="contact" class="tab-pane fade">

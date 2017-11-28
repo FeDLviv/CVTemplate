@@ -76,6 +76,29 @@ $(function () {
         });
     };
 
+    //AJAX ВІДПРАВКА ДАНИХ ФОРМИ Password НА СЕРВЕР ТА ОБРОБКА РЕЗУЛЬТАТУ
+    $('#formPassword').on('submit', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        if (form.find('input[name="newPas"]').val() === form.find('input[name="confNewPas"]').val()) {
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: form.serialize(),
+                success: function (result) {
+                    var tmp = $.parseJSON(result);
+                    $('#modalError').html(tmp.html);
+                    $('#modalText').text(tmp.complete ? 'Password changed' : 'Error');
+                    $('#modalDialog').modal('show');
+                }
+            });
+        } else {
+            $('#modalError').html('<small class="form-text text-muted text-danger">Password does not match the confirm password</small>');
+            $('#modalText').text('Error');
+            $('#modalDialog').modal('show');
+        }
+    });
+
     //AJAX ВІДПРАВКА ДАНИХ ФОРМИ Contact НА СЕРВЕР ТА ОБРОБКА РЕЗУЛЬТАТУ
     $('#formContact').on('submit', function (e) {
         e.preventDefault();
@@ -91,7 +114,7 @@ $(function () {
                 }
                 $('#modalError').html(tmp.html);
                 $('#modalText').text(tmp.complete ? 'Save' : 'Error');
-                $('#modalDialog').modal('show')
+                $('#modalDialog').modal('show');
             }
         });
     });

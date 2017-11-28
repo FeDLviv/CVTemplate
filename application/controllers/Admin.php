@@ -122,6 +122,23 @@ class Admin extends CI_Controller
         }
     }
 
+    public function ajax_change_password() {
+        $result = [
+            'complete' => false,
+            'html' => null
+        ];
+        if ($this->form_validation->run() == true) {
+            $user = $this->input->post('user');
+            $oldPas = $this->input->post('oldPas');
+            $newPas = $this->input->post('newPas');
+            $this->load->model('admin_model');
+            $result['complete'] = $this->admin_model->set_password($user, $oldPas, $newPas);
+        } else {
+            $result['html'] = validation_errors();
+        }
+        echo json_encode($result);
+    }
+
     public function ajax_contact()
     {
         $result = [
@@ -245,7 +262,7 @@ class Admin extends CI_Controller
         }
         $result = $result = $this->main_model->update_row($table, $id, $col, $val);
         if ($result === true) {
-            echo date('Y-m-d H:i:s', strtotime('+1 hours'));
+            echo date('Y-m-d H:i:s');
         } else {
             $this->output->set_status_header('400');
             echo $result;

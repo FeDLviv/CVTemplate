@@ -28,6 +28,28 @@ $config = [
             'rules' => 'trim|required|max_length[30]',
         ]
     ],
+    'admin/ajax_change_password' => [
+        [
+            'field' => 'user',
+            'label' => 'User',
+            'rules' => 'trim|required|max_length[50]'
+        ],
+        [
+            'field' => 'oldPas',
+            'label' => 'Old password',
+            'rules' => 'trim|required|max_length[30]'
+        ],
+        [
+            'field' => 'newPas',
+            'label' => 'new password',
+            'rules' => 'trim|required|max_length[30]'
+        ],
+        [
+            'field' => 'confNewPas',
+            'label' => 'confirm new password',
+            'rules' => 'trim|required|max_length[30]|matches[newPas]'
+        ]
+    ],
     'admin/ajax_contact' => [
         [
             'field' => 'Location',

@@ -1,9 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Undocumented class
+ */
 class Main extends CI_Controller
 {
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index()
     {
         $data = [];
@@ -16,6 +24,12 @@ class Main extends CI_Controller
         $this->load->view('main_view', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     private function _add_settings(&$data)
     {
         $data['head'] = $this->config->item('Head');
@@ -25,6 +39,12 @@ class Main extends CI_Controller
         $data['last_change'] = $this->config->item('Last_change');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     private function _rendererData($data)
     {
         foreach ($data as &$row) {
@@ -49,6 +69,12 @@ class Main extends CI_Controller
         return $data;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     private function _groupSkills($data)
     {
         $result = [];

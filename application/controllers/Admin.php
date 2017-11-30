@@ -1,9 +1,15 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Undocumented class
+ */
 class Admin extends CI_Controller
 {
-
+    
+    /**
+     * Undocumented function
+     */
     public function __construct()
     {
         parent::__construct();
@@ -12,6 +18,12 @@ class Admin extends CI_Controller
         $this->load->helper('form');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $method
+     * @return void
+     */
     public function _remap($method)
     {
         if ($method == 'logout') {
@@ -29,6 +41,11 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index()
     {
         $data['settings'] = [
@@ -46,6 +63,11 @@ class Admin extends CI_Controller
         $this->load->view('admin_view', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function login()
     {
         $this->load->model('admin_model');
@@ -68,12 +90,22 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function logout()
     {
         $this->session->sess_destroy();
         redirect('/admin');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_settings()
     {
         $this->load->library('upload');
@@ -103,6 +135,11 @@ class Admin extends CI_Controller
             echo json_encode($result);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_delete_file()
     {
         switch ($this->input->post('name')) {
@@ -122,6 +159,11 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_change_password() {
         $result = [
             'complete' => false,
@@ -139,6 +181,11 @@ class Admin extends CI_Controller
         echo json_encode($result);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_contact()
     {
         $result = [
@@ -153,6 +200,11 @@ class Admin extends CI_Controller
         echo json_encode($result);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_insert_education() 
     {
         if ($this->form_validation->run() == true) {
@@ -173,6 +225,11 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_insert_work() 
     {
         if ($this->form_validation->run() == true) {
@@ -191,6 +248,11 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_insert_skill()
     {
         if ($this->form_validation->run() == true) {
@@ -207,6 +269,11 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_insert_language()
     {
         if ($this->form_validation->run() == true) {
@@ -223,21 +290,41 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_skill_type_enum()
     {
         echo json_encode($this->main_model->get_enums('skill', 'type'));
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_skill_level_enum()
     {
         echo json_encode($this->main_model->get_enums('skill', 'level'));
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_language_enum()
     {
         echo json_encode($this->main_model->get_enums('language', 'level'));
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_delete_row()
     {
         $table = $this->input->post('table');
@@ -245,6 +332,11 @@ class Admin extends CI_Controller
         echo $this->main_model->delete_row($table, $id);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function ajax_update_row()
     {
         $table = $this->input->post('table');
@@ -269,6 +361,12 @@ class Admin extends CI_Controller
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $key
+     * @return void
+     */
     private function _upload_file($key)
     {
         $result = [
@@ -307,6 +405,12 @@ class Admin extends CI_Controller
         return $result;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $val
+     * @return boolean
+     */
     public function is_date($val)
     {
         if(preg_match('/[^A-Za-z0-9\.\/\\\\]|\..*\.|\.$/', $val)) {

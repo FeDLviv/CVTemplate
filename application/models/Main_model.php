@@ -1,9 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Undocumented class
+ */
 class Main_model extends CI_Model
 {
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_tables_fields_list()
     {
         $result;
@@ -18,6 +26,13 @@ class Main_model extends CI_Model
         return $result;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $table
+     * @param [type] $column
+     * @return void
+     */
     public function get_enums($table, $column)
     {
         $enums = [];
@@ -28,6 +43,12 @@ class Main_model extends CI_Model
         return $enums;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function set_settings($data)
     {
         $name = "application/config/myconfig.php";
@@ -53,11 +74,22 @@ class Main_model extends CI_Model
         return true;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_contacts()
     {
         return $this->config->item('contacts');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function set_contacts($data)
     {
         $name = "application/config/myconfig.php";
@@ -83,6 +115,11 @@ class Main_model extends CI_Model
         return true;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_education()
     {
         $query = $this->db->query('SELECT * 
@@ -91,11 +128,22 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function insert_education($data)
     {
         return $this->insert_row('education', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_works()
     {
         $query = $this->db->query('SELECT * 
@@ -104,11 +152,22 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function insert_work($data)
     {
         return $this->insert_row('work', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_skills()
     {
         $query = $this->db->query('SELECT * 
@@ -117,11 +176,22 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function insert_skill($data)
     {
         return $this->insert_row('skill', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_languages()
     {
         $query = $this->db->query('SELECT * 
@@ -130,11 +200,24 @@ class Main_model extends CI_Model
         return $query->result_array();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function insert_language($data)
     {
         return $this->insert_row('language', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $table
+     * @param [type] $id
+     * @return void
+     */
     public function delete_row($table, $id)
     {
         $this->db->delete($table, array('id' => $id));
@@ -145,6 +228,15 @@ class Main_model extends CI_Model
         return $result;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $table
+     * @param [type] $id
+     * @param [type] $col
+     * @param [type] $val
+     * @return void
+     */
     public function update_row($table, $id, $col, $val)
     {
         $this->db->update($table, array($col => $val), array('id' => $id));
@@ -156,6 +248,13 @@ class Main_model extends CI_Model
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $key
+     * @param [type] $value
+     * @return void
+     */
     public function set_setting_by_name($key, $value)
     {
         $name = "application/config/myconfig.php";
@@ -172,6 +271,13 @@ class Main_model extends CI_Model
         return true;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $table
+     * @param [type] $data
+     * @return void
+     */
     private function insert_row($table, $data)
     {
         if($this->db->insert($table, $data)){
@@ -183,6 +289,12 @@ class Main_model extends CI_Model
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $content
+     * @return void
+     */
     private function set_last_change($content)
     {
         $reg ="{config\['Last_change'\]\s*=\s*(.+)'}";

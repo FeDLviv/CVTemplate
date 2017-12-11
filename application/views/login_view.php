@@ -18,7 +18,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-5">
+            <div class="col-8 col-lg-6">
 
                 <form action="<?= base_url(); ?>admin/login" method="POST" class="mt-5 px-5 pb-5 pt-3 bg-white">
 
